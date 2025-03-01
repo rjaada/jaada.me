@@ -1414,3 +1414,72 @@ html[data-theme="dark"] .terminal-prompt {
 html[data-theme="dark"] .project-details .placeholder-block {
     display: none;
 }
+
+/* Custom Cursor Styles */
+.cursor-dot,
+.cursor-outline {
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    z-index: 9999;
+    transition: opacity 0.3s ease;
+}
+
+.cursor-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--accent-color);
+}
+
+.cursor-outline {
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--accent-color);
+    transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease, border 0.3s ease;
+}
+
+/* Hover state for links and buttons */
+a:hover ~ .cursor-dot,
+button:hover ~ .cursor-dot,
+.work-item:hover ~ .cursor-dot,
+.nav-item a:hover ~ .cursor-dot,
+.theme-toggle:hover ~ .cursor-dot,
+.social-link:hover ~ .cursor-dot,
+.view-more-button:hover ~ .cursor-dot,
+input:hover ~ .cursor-dot,
+textarea:hover ~ .cursor-dot {
+    transform: translate(-50%, -50%) scale(1.5);
+}
+
+a:hover ~ .cursor-outline,
+button:hover ~ .cursor-outline,
+.work-item:hover ~ .cursor-outline,
+.nav-item a:hover ~ .cursor-outline,
+.theme-toggle:hover ~ .cursor-outline,
+.social-link:hover ~ .cursor-outline,
+.view-more-button:hover ~ .cursor-outline,
+input:hover ~ .cursor-outline,
+textarea:hover ~ .cursor-outline {
+    transform: translate(-50%, -50%) scale(1.5);
+    border-color: transparent;
+}
+
+/* Hide default cursor */
+html {
+    cursor: none;
+}
+
+/* On touch devices, revert to default cursor */
+@media (hover: none) {
+    html {
+        cursor: auto;
+    }
+    
+    .cursor-dot,
+    .cursor-outline {
+        display: none;
+    }
+}

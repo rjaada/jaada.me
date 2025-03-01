@@ -682,4 +682,76 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('.explorer-container').addEventListener('click', function(e) {
         e.stopPropagation();
     });
+
+    // Custom cursor functionality
+    const cursorDot = document.querySelector('.cursor-dot');
+    const cursorOutline = document.querySelector('.cursor-outline');
+    
+    // Check if cursor elements exist and if device supports hover
+    const hasHoverSupport = window.matchMedia('(hover: hover)').matches;
+    const hasCursorElements = cursorDot && cursorOutline;
+    
+    if (hasCursorElements && hasHoverSupport) {
+        // Set initial positions off-screen
+        cursorDot.style.opacity = 0;
+        cursorOutline.style.opacity = 0;
+        
+        // Track mouse movement
+        document.addEventListener('mousemove', function(e) {
+            // Smooth animation using requestAnimationFrame
+            window.requestAnimationFrame(function() {
+                cursorDot.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+                cursorOutline.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+                
+                // Ensure cursor is visible
+                if (cursorDot.style.opacity === '0') {
+                    cursorDot.style.opacity = 1;
+                    cursorOutline.style.opacity = 1;
+                }
+            });
+        });
+        
+        // Handle mouse leaving the window
+        document.addEventListener('mouseleave', function() {
+            cursorDot.style.opacity = 0;
+            cursorOutline.style.opacity = 0;
+        });
+        
+        // Handle mouse entering the window
+        document.addEventListener('mouseenter', function() {
+            cursorDot.style.opacity = 1;
+            cursorOutline.style.opacity = 1;
+        });
+        
+        // Handle cursor on clickable elements
+        const clickables = document.querySelectorAll('a, button, .work-item, .nav-item a, .theme-toggle, .social-link, .view-more-button, input, textarea');
+        
+        clickables.forEach(element => {
+            element.addEventListener('mouseenter', function() {
+                cursorDot.style.transform = `translate(-50%, -50%) scale(1.5)`;
+                cursorOutline.style.width = '50px';
+                cursorOutline.style.height = '50px';
+                cursorOutline.style.borderColor = 'transparent';
+            });
+            
+            element.addEventListener('mouseleave', function() {
+                cursorDot.style.transform = `translate(-50%, -50%) scale(1)`;
+                cursorOutline.style.width = '40px';
+                cursorOutline.style.height = '40px';
+                cursorOutline.style.borderColor = 'var(--accent-color)';
+            });
+        });
+        
+        // Handle mousedown state
+        document.addEventListener('mousedown', function() {
+            cursorDot.style.transform = `translate(-50%, -50%) scale(0.75)`;
+            cursorOutline.style.transform = `translate(-50%, -50%) scale(0.75)`;
+        });
+        
+        // Handle mouseup state
+        document.addEventListener('mouseup', function() {
+            cursorDot.style.transform = `translate(-50%, -50%) scale(1)`;
+            cursorOutline.style.transform = `translate(-50%, -50%) scale(1)`;
+        });
+    }
 });
