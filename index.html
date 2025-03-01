@@ -142,7 +142,7 @@
                     <div class="contact-content">
                         <form class="contact-form" id="contact-form" action="https://api.web3forms.com/submit" method="POST">
                             <input type="hidden" name="access_key" value="6dd2d022-0fc3-4e9c-86eb-3777dd58c75b">
-                            <input type="hidden" name="redirect" value="https://web3forms.com/success">
+                            <input type="hidden" name="from_name" value="Jaada.me Website">
                             <input type="text" name="name" placeholder="What's your name?" required>
                             <input type="email" name="email" placeholder="What's your email?" required>
                             <textarea name="message" placeholder="What can I do for you?" rows="6" required></textarea>
@@ -151,6 +151,18 @@
                                 <span>Send Message</span>
                             </button>
                         </form>
+                        
+                        <div class="success-message" id="success-message" style="display: none;">
+                            <div class="success-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                </svg>
+                            </div>
+                            <h3>Message Sent Successfully!</h3>
+                            <p>Thank you for reaching out. I'll get back to you soon.</p>
+                            <button class="close-success-button" id="close-success-button">Close</button>
+                        </div>
                     </div>
                 </div>
             </section>

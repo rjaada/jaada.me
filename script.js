@@ -177,6 +177,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
         const submitButton = contactForm.querySelector('.submit-button');
+        const successMessage = document.getElementById('success-message');
+        const closeSuccessButton = document.getElementById('close-success-button');
         
         // Button press effect
         if (submitButton) {
@@ -193,12 +195,62 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
         
-        // Add loading state to button but let the form submit naturally
-        contactForm.addEventListener('submit', function() {
+        // Handle form submission
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
             submitButton.innerHTML = '<span>Sending...</span>';
             submitButton.disabled = true;
-            // Form will now submit naturally to Web3Forms
+            
+            // Get form data
+            const formData = new FormData(this);
+            
+            // Submit form using fetch API
+            fetch(this.action, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Show success message
+                    contactForm.style.display = 'none';
+                    successMessage.style.display = 'block';
+                    setTimeout(() => {
+                        successMessage.classList.add('visible');
+                    }, 10);
+                    
+                    // Reset form 
+                    contactForm.reset();
+                    return response.json();
+                } else {
+                    throw new Error('Network response was not ok');
+                }
+            })
+            .catch(error => {
+                // Error handling
+                console.error('Submission failed:', error);
+                submitButton.innerHTML = '<span>Sending Failed</span>';
+                
+                // Reset button after 2 seconds
+                setTimeout(() => {
+                    submitButton.innerHTML = '<span>Send Message</span>';
+                    submitButton.disabled = false;
+                }, 2000);
+            });
         });
+        
+        // Close success message
+        if (closeSuccessButton) {
+            closeSuccessButton.addEventListener('click', function() {
+                successMessage.classList.remove('visible');
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                    contactForm.style.display = 'block';
+                    submitButton.innerHTML = '<span>Send Message</span>';
+                    submitButton.disabled = false;
+                }, 300);
+            });
+        }
     }
 
     // Ensure feather icons update with theme changes
