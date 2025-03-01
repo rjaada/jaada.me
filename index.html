@@ -260,9 +260,19 @@
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
 
-    <!-- Ensure feather icons are initialized -->
+    <!-- Load Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script>
-        feather.replace();
+        (function() {
+            emailjs.init({
+                publicKey: "axFGZp1FWh1WiOoVE",
+            });
+            
+            // Initialize Feather Icons
+            feather.replace();
+        })();
     </script>
+    <script src="script.js"></script>
 </body>
 </html>

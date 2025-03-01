@@ -203,26 +203,44 @@ document.addEventListener('DOMContentLoaded', function() {
                 message: this.elements.message.value
             };
             
-            // Log form data (replace with actual form submission)
-            console.log('Form submitted:', formData);
-            
-            // Store the original button styling properties
-            const originalButtonStyles = {
-                backgroundColor: window.getComputedStyle(submitButton).backgroundColor,
-                color: window.getComputedStyle(submitButton).color,
-                border: window.getComputedStyle(submitButton).border
-            };
-            
-            // Add subtle success animation
-            submitButton.innerHTML = '<span>Message Sent!</span>';
+            // Show loading state
+            const originalButtonText = submitButton.innerHTML;
+            submitButton.innerHTML = '<span>Sending...</span>';
             submitButton.disabled = true;
             
-            // Reset after 2 seconds
-            setTimeout(() => {
-                submitButton.innerHTML = '<span>Send Message</span>';
-                submitButton.disabled = false;
-                this.reset();
-            }, 2000);
+            // Send the email using EmailJS
+            emailjs.send(
+                'service_nrydb0o', // Your service ID
+                'template_ai2rgih', // Your template ID
+                {
+                    from_name: formData.name, // The sender's name
+                    name: formData.name, // Required for the template
+                    from_email: formData.email, // The sender's email
+                    message: formData.message // The message content
+                }
+            )
+            .then(function() {
+                // Success message
+                submitButton.innerHTML = '<span>Message Sent!</span>';
+                
+                // Reset form after 2 seconds
+                setTimeout(() => {
+                    submitButton.innerHTML = originalButtonText;
+                    submitButton.disabled = false;
+                    contactForm.reset();
+                }, 2000);
+            })
+            .catch(function(error) {
+                // Error handling
+                console.error('Email sending failed:', error);
+                submitButton.innerHTML = '<span>Sending Failed</span>';
+                
+                // Reset button after 2 seconds
+                setTimeout(() => {
+                    submitButton.innerHTML = originalButtonText;
+                    submitButton.disabled = false;
+                }, 2000);
+            });
         });
     }
 
