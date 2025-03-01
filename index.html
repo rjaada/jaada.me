@@ -140,7 +140,10 @@
                     <p class="contact-intro">Contact me today to bring your vision to life with my expertise in software development.</p>
                     
                     <div class="contact-content">
-                        <form class="contact-form" id="contact-form">
+                        <form class="contact-form" id="contact-form" action="https://api.web3forms.com/submit" method="POST">
+                            <input type="hidden" name="access_key" value="6dd2d022-0fc3-4e9c-86eb-3777dd58c75b">
+                            <input type="hidden" name="subject" value="New Contact Form Submission from jaada.me">
+                            <input type="hidden" name="redirect" value="https://web3forms.com/success">
                             <input type="text" name="name" placeholder="What's your name?" required>
                             <input type="email" name="email" placeholder="What's your email?" required>
                             <textarea name="message" placeholder="What can I do for you?" rows="6" required></textarea>
@@ -262,13 +265,8 @@
 
     <!-- Load Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script>
         (function() {
-            emailjs.init({
-                publicKey: "axFGZp1FWh1WiOoVE",
-            });
-            
             // Initialize Feather Icons
             feather.replace();
         })();

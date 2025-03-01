@@ -205,43 +205,40 @@ document.addEventListener('DOMContentLoaded', function() {
             
             isSubmitting = true;
             
-            // Get form data
-            const formData = {
-                name: this.elements.name.value,
-                email: this.elements.email.value,
-                message: this.elements.message.value
-            };
-            
             // Show loading state
             const originalButtonText = submitButton.innerHTML;
             submitButton.innerHTML = '<span>Sending...</span>';
             submitButton.disabled = true;
             
-            // Send the email using EmailJS
-            emailjs.send(
-                'service_3aa4gas', // Your service ID
-                'template_h3ronh8', // Your template ID
-                {
-                    name: formData.name, // Sender's name for template
-                    message: formData.message, // The message content
-                    from_email: formData.email // Sender's email (for your reference)
-                }
-            )
-            .then(function() {
-                // Success message
-                submitButton.innerHTML = '<span>Message Sent!</span>';
-                
-                // Reset form after 2 seconds
-                setTimeout(() => {
-                    submitButton.innerHTML = originalButtonText;
-                    submitButton.disabled = false;
-                    contactForm.reset();
-                    isSubmitting = false; // Reset submission flag
-                }, 2000);
+            // Get form data
+            const formData = new FormData(this);
+            
+            // Submit form using fetch API
+            fetch(this.action, {
+                method: 'POST',
+                body: formData
             })
-            .catch(function(error) {
+            .then(response => {
+                if (response.ok) {
+                    // Success message
+                    submitButton.innerHTML = '<span>Message Sent!</span>';
+                    
+                    // Reset form after 2 seconds
+                    setTimeout(() => {
+                        submitButton.innerHTML = originalButtonText;
+                        submitButton.disabled = false;
+                        contactForm.reset();
+                        isSubmitting = false; // Reset submission flag
+                    }, 2000);
+                    
+                    return response.json();
+                } else {
+                    throw new Error('Network response was not ok');
+                }
+            })
+            .catch(error => {
                 // Error handling
-                console.error('Email sending failed:', error);
+                console.error('Submission failed:', error);
                 submitButton.innerHTML = '<span>Sending Failed</span>';
                 
                 // Reset button after 2 seconds
