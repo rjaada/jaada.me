@@ -1432,11 +1432,13 @@ html[data-theme="dark"] .project-details .placeholder-block {
     width: 8px;
     height: 8px;
     background-color: var(--accent-color);
+    opacity: 0;
+    display: none;
 }
 
 .cursor-outline {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     border: 2px solid var(--accent-color);
     transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease, border 0.3s ease;
 }
