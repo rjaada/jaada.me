@@ -684,63 +684,42 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Custom cursor functionality
+    const cursorDot = document.querySelector('.cursor-dot');
     const cursorOutline = document.querySelector('.cursor-outline');
     
     // Check if cursor elements exist and if device supports hover
     const hasHoverSupport = window.matchMedia('(hover: hover)').matches;
-    const hasCursorElements = cursorOutline;
+    const hasCursorElements = cursorDot && cursorOutline;
     
     if (hasCursorElements && hasHoverSupport) {
-        // Initialize cursor position at center of screen
-        let mouseX = window.innerWidth / 2;
-        let mouseY = window.innerHeight / 2;
-        let cursorX = mouseX;
-        let cursorY = mouseY;
-        
-        // Set initial cursor position
-        cursorOutline.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
-        
-        // Wait a moment before showing the cursor
-        setTimeout(() => {
-            cursorOutline.style.opacity = 1;
-        }, 100);
+        // Set initial positions off-screen
+        cursorDot.style.opacity = 0;
+        cursorOutline.style.opacity = 0;
         
         // Track mouse movement
         document.addEventListener('mousemove', function(e) {
-            // Store the target position
-            mouseX = e.clientX;
-            mouseY = e.clientY;
+            // Smooth animation using requestAnimationFrame
+            window.requestAnimationFrame(function() {
+                cursorDot.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+                cursorOutline.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+                
+                // Ensure cursor is visible
+                if (cursorDot.style.opacity === '0') {
+                    cursorDot.style.opacity = 1;
+                    cursorOutline.style.opacity = 1;
+                }
+            });
         });
         
-        // Apple-like smooth animation with lerping
-        function animateCursor() {
-            // Smooth interpolation calculation
-            const easeFactor = 0.2; // Slightly faster for more responsiveness
-            
-            // Calculate the distance to move
-            const dx = mouseX - cursorX;
-            const dy = mouseY - cursorY;
-            
-            // Apply easing
-            cursorX += dx * easeFactor;
-            cursorY += dy * easeFactor;
-            
-            // Apply the transformation (without translate(-50%, -50%) since we use margin in CSS)
-            cursorOutline.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
-            
-            // Continue the animation
-            requestAnimationFrame(animateCursor);
-        }
-        
-        // Start the animation loop
-        animateCursor();
-        
-        // Handle mouse leaving/entering window
+        // Handle mouse leaving the window
         document.addEventListener('mouseleave', function() {
+            cursorDot.style.opacity = 0;
             cursorOutline.style.opacity = 0;
         });
         
+        // Handle mouse entering the window
         document.addEventListener('mouseenter', function() {
+            cursorDot.style.opacity = 1;
             cursorOutline.style.opacity = 1;
         });
         
@@ -749,23 +728,30 @@ document.addEventListener('DOMContentLoaded', function() {
         
         clickables.forEach(element => {
             element.addEventListener('mouseenter', function() {
-                cursorOutline.style.transform = `translate(${cursorX}px, ${cursorY}px) scale(1.3)`;
-                cursorOutline.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+                cursorDot.style.transform = `translate(-50%, -50%) scale(1.5)`;
+                cursorOutline.style.width = '50px';
+                cursorOutline.style.height = '50px';
+                cursorOutline.style.borderColor = 'transparent';
             });
             
             element.addEventListener('mouseleave', function() {
-                cursorOutline.style.transform = `translate(${cursorX}px, ${cursorY}px) scale(1)`;
-                cursorOutline.style.backgroundColor = 'transparent';
+                cursorDot.style.transform = `translate(-50%, -50%) scale(1)`;
+                cursorOutline.style.width = '40px';
+                cursorOutline.style.height = '40px';
+                cursorOutline.style.borderColor = 'var(--accent-color)';
             });
         });
         
-        // Handle mousedown/up state
+        // Handle mousedown state
         document.addEventListener('mousedown', function() {
-            cursorOutline.style.transform = `translate(${cursorX}px, ${cursorY}px) scale(0.9)`;
+            cursorDot.style.transform = `translate(-50%, -50%) scale(0.75)`;
+            cursorOutline.style.transform = `translate(-50%, -50%) scale(0.75)`;
         });
         
+        // Handle mouseup state
         document.addEventListener('mouseup', function() {
-            cursorOutline.style.transform = `translate(${cursorX}px, ${cursorY}px) scale(1)`;
+            cursorDot.style.transform = `translate(-50%, -50%) scale(1)`;
+            cursorOutline.style.transform = `translate(-50%, -50%) scale(1)`;
         });
     }
 });
