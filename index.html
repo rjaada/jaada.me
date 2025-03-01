@@ -161,10 +161,6 @@
         <span class="toggle-thumb"></span>
     </button>
     
-    <script>
-        feather.replace();
-    </script>
-    
     <!-- Project Modal -->
     <div id="project-modal" class="project-modal">
         <div class="modal-overlay"></div>
@@ -260,7 +256,12 @@
         </div>
     </div>
 
-    <!-- Custom Cursor Elements -->
+    <!-- Custom Cursor Elements - Positioned at the very end of the body -->
     <div class="cursor-outline"></div>
+
+    <!-- Ensure feather icons are initialized -->
+    <script>
+        feather.replace();
+    </script>
 </body>
 </html>

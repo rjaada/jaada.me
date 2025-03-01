@@ -1416,16 +1416,12 @@ html[data-theme="dark"] .project-details .placeholder-block {
 }
 
 /* Custom Cursor Styles */
-.cursor-dot {
-    display: none;
-}
-
 .cursor-outline {
     pointer-events: none;
     position: fixed;
     top: 0;
     left: 0;
-    transform: translate(-50%, -50%);
+    transform: translate(0, 0);
     border-radius: 50%;
     z-index: 9999;
     width: 25px;
@@ -1433,6 +1429,25 @@ html[data-theme="dark"] .project-details .placeholder-block {
     border: 1.5px solid var(--accent-color);
     transition: transform 0.15s ease, width 0.15s ease, height 0.15s ease, background-color 0.15s ease;
     mix-blend-mode: difference;
+    opacity: 0; /* Start hidden */
+    margin-left: -12.5px; /* Half the width */
+    margin-top: -12.5px; /* Half the height */
+}
+
+/* Hide default cursor on all elements */
+html, 
+body,
+a, 
+button, 
+.work-item, 
+.nav-item a, 
+.theme-toggle, 
+.social-link, 
+.view-more-button, 
+input, 
+textarea,
+* {
+    cursor: none !important;
 }
 
 /* Hover state for interactive elements */
@@ -1445,19 +1460,25 @@ button:hover ~ .cursor-outline,
 .view-more-button:hover ~ .cursor-outline,
 input:hover ~ .cursor-outline,
 textarea:hover ~ .cursor-outline {
-    transform: translate(-50%, -50%) scale(1.3);
-    background-color: rgba(var(--accent-color-rgb, 255, 255, 255), 0.1);
-}
-
-/* Hide default cursor */
-html {
-    cursor: none;
+    transform: scale(1.3);
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 /* On touch devices, revert to default cursor */
 @media (hover: none) {
-    html {
-        cursor: auto;
+    html, 
+    body,
+    a, 
+    button, 
+    .work-item, 
+    .nav-item a, 
+    .theme-toggle, 
+    .social-link, 
+    .view-more-button, 
+    input, 
+    textarea,
+    * {
+        cursor: auto !important;
     }
     
     .cursor-outline {

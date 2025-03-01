@@ -691,31 +691,31 @@ document.addEventListener('DOMContentLoaded', function() {
     const hasCursorElements = cursorOutline;
     
     if (hasCursorElements && hasHoverSupport) {
-        // Set initial position off-screen
-        cursorOutline.style.opacity = 0;
+        // Initialize cursor position at center of screen
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight / 2;
+        let cursorX = mouseX;
+        let cursorY = mouseY;
         
-        // Target position variables for smooth animation
-        let mouseX = 0;
-        let mouseY = 0;
-        let cursorX = 0;
-        let cursorY = 0;
+        // Set initial cursor position
+        cursorOutline.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+        
+        // Wait a moment before showing the cursor
+        setTimeout(() => {
+            cursorOutline.style.opacity = 1;
+        }, 100);
         
         // Track mouse movement
         document.addEventListener('mousemove', function(e) {
             // Store the target position
             mouseX = e.clientX;
             mouseY = e.clientY;
-            
-            // Ensure cursor is visible
-            if (cursorOutline.style.opacity === '0') {
-                cursorOutline.style.opacity = 1;
-            }
         });
         
         // Apple-like smooth animation with lerping
         function animateCursor() {
-            // Smooth interpolation calculation (Apple style)
-            const easeFactor = 0.15; // Lower for slower/smoother movement
+            // Smooth interpolation calculation
+            const easeFactor = 0.2; // Slightly faster for more responsiveness
             
             // Calculate the distance to move
             const dx = mouseX - cursorX;
@@ -725,7 +725,7 @@ document.addEventListener('DOMContentLoaded', function() {
             cursorX += dx * easeFactor;
             cursorY += dy * easeFactor;
             
-            // Apply the transformation
+            // Apply the transformation (without translate(-50%, -50%) since we use margin in CSS)
             cursorOutline.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
             
             // Continue the animation
@@ -735,24 +735,22 @@ document.addEventListener('DOMContentLoaded', function() {
         // Start the animation loop
         animateCursor();
         
-        // Handle mouse leaving the window
+        // Handle mouse leaving/entering window
         document.addEventListener('mouseleave', function() {
             cursorOutline.style.opacity = 0;
         });
         
-        // Handle mouse entering the window
         document.addEventListener('mouseenter', function() {
             cursorOutline.style.opacity = 1;
         });
         
-        // Handle cursor on clickable elements - Apple style
+        // Handle cursor on clickable elements
         const clickables = document.querySelectorAll('a, button, .work-item, .nav-item a, .theme-toggle, .social-link, .view-more-button, input, textarea');
         
         clickables.forEach(element => {
             element.addEventListener('mouseenter', function() {
                 cursorOutline.style.transform = `translate(${cursorX}px, ${cursorY}px) scale(1.3)`;
                 cursorOutline.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
-                cursorOutline.style.mixBlendMode = 'difference';
             });
             
             element.addEventListener('mouseleave', function() {
@@ -761,12 +759,11 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
         
-        // Handle mousedown state - Apple style subtle shrink
+        // Handle mousedown/up state
         document.addEventListener('mousedown', function() {
             cursorOutline.style.transform = `translate(${cursorX}px, ${cursorY}px) scale(0.9)`;
         });
         
-        // Handle mouseup state
         document.addEventListener('mouseup', function() {
             cursorOutline.style.transform = `translate(${cursorX}px, ${cursorY}px) scale(1)`;
         });
