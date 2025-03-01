@@ -1416,7 +1416,10 @@ html[data-theme="dark"] .project-details .placeholder-block {
 }
 
 /* Custom Cursor Styles */
-.cursor-dot,
+.cursor-dot {
+    display: none;
+}
+
 .cursor-outline {
     pointer-events: none;
     position: fixed;
@@ -1425,35 +1428,14 @@ html[data-theme="dark"] .project-details .placeholder-block {
     transform: translate(-50%, -50%);
     border-radius: 50%;
     z-index: 9999;
-    transition: opacity 0.3s ease;
+    width: 25px;
+    height: 25px;
+    border: 1.5px solid var(--accent-color);
+    transition: transform 0.15s ease, width 0.15s ease, height 0.15s ease, background-color 0.15s ease;
+    mix-blend-mode: difference;
 }
 
-.cursor-dot {
-    width: 8px;
-    height: 8px;
-    background-color: var(--accent-color);
-}
-
-.cursor-outline {
-    width: 40px;
-    height: 40px;
-    border: 2px solid var(--accent-color);
-    transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease, border 0.3s ease;
-}
-
-/* Hover state for links and buttons */
-a:hover ~ .cursor-dot,
-button:hover ~ .cursor-dot,
-.work-item:hover ~ .cursor-dot,
-.nav-item a:hover ~ .cursor-dot,
-.theme-toggle:hover ~ .cursor-dot,
-.social-link:hover ~ .cursor-dot,
-.view-more-button:hover ~ .cursor-dot,
-input:hover ~ .cursor-dot,
-textarea:hover ~ .cursor-dot {
-    transform: translate(-50%, -50%) scale(1.5);
-}
-
+/* Hover state for interactive elements */
 a:hover ~ .cursor-outline,
 button:hover ~ .cursor-outline,
 .work-item:hover ~ .cursor-outline,
@@ -1463,8 +1445,8 @@ button:hover ~ .cursor-outline,
 .view-more-button:hover ~ .cursor-outline,
 input:hover ~ .cursor-outline,
 textarea:hover ~ .cursor-outline {
-    transform: translate(-50%, -50%) scale(1.5);
-    border-color: transparent;
+    transform: translate(-50%, -50%) scale(1.3);
+    background-color: rgba(var(--accent-color-rgb, 255, 255, 255), 0.1);
 }
 
 /* Hide default cursor */
@@ -1478,7 +1460,6 @@ html {
         cursor: auto;
     }
     
-    .cursor-dot,
     .cursor-outline {
         display: none;
     }

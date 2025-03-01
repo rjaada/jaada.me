@@ -684,74 +684,91 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Custom cursor functionality
-    const cursorDot = document.querySelector('.cursor-dot');
     const cursorOutline = document.querySelector('.cursor-outline');
     
     // Check if cursor elements exist and if device supports hover
     const hasHoverSupport = window.matchMedia('(hover: hover)').matches;
-    const hasCursorElements = cursorDot && cursorOutline;
+    const hasCursorElements = cursorOutline;
     
     if (hasCursorElements && hasHoverSupport) {
-        // Set initial positions off-screen
-        cursorDot.style.opacity = 0;
+        // Set initial position off-screen
         cursorOutline.style.opacity = 0;
+        
+        // Target position variables for smooth animation
+        let mouseX = 0;
+        let mouseY = 0;
+        let cursorX = 0;
+        let cursorY = 0;
         
         // Track mouse movement
         document.addEventListener('mousemove', function(e) {
-            // Smooth animation using requestAnimationFrame
-            window.requestAnimationFrame(function() {
-                cursorDot.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-                cursorOutline.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-                
-                // Ensure cursor is visible
-                if (cursorDot.style.opacity === '0') {
-                    cursorDot.style.opacity = 1;
-                    cursorOutline.style.opacity = 1;
-                }
-            });
+            // Store the target position
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            // Ensure cursor is visible
+            if (cursorOutline.style.opacity === '0') {
+                cursorOutline.style.opacity = 1;
+            }
         });
+        
+        // Apple-like smooth animation with lerping
+        function animateCursor() {
+            // Smooth interpolation calculation (Apple style)
+            const easeFactor = 0.15; // Lower for slower/smoother movement
+            
+            // Calculate the distance to move
+            const dx = mouseX - cursorX;
+            const dy = mouseY - cursorY;
+            
+            // Apply easing
+            cursorX += dx * easeFactor;
+            cursorY += dy * easeFactor;
+            
+            // Apply the transformation
+            cursorOutline.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
+            
+            // Continue the animation
+            requestAnimationFrame(animateCursor);
+        }
+        
+        // Start the animation loop
+        animateCursor();
         
         // Handle mouse leaving the window
         document.addEventListener('mouseleave', function() {
-            cursorDot.style.opacity = 0;
             cursorOutline.style.opacity = 0;
         });
         
         // Handle mouse entering the window
         document.addEventListener('mouseenter', function() {
-            cursorDot.style.opacity = 1;
             cursorOutline.style.opacity = 1;
         });
         
-        // Handle cursor on clickable elements
+        // Handle cursor on clickable elements - Apple style
         const clickables = document.querySelectorAll('a, button, .work-item, .nav-item a, .theme-toggle, .social-link, .view-more-button, input, textarea');
         
         clickables.forEach(element => {
             element.addEventListener('mouseenter', function() {
-                cursorDot.style.transform = `translate(-50%, -50%) scale(1.5)`;
-                cursorOutline.style.width = '50px';
-                cursorOutline.style.height = '50px';
-                cursorOutline.style.borderColor = 'transparent';
+                cursorOutline.style.transform = `translate(${cursorX}px, ${cursorY}px) scale(1.3)`;
+                cursorOutline.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+                cursorOutline.style.mixBlendMode = 'difference';
             });
             
             element.addEventListener('mouseleave', function() {
-                cursorDot.style.transform = `translate(-50%, -50%) scale(1)`;
-                cursorOutline.style.width = '40px';
-                cursorOutline.style.height = '40px';
-                cursorOutline.style.borderColor = 'var(--accent-color)';
+                cursorOutline.style.transform = `translate(${cursorX}px, ${cursorY}px) scale(1)`;
+                cursorOutline.style.backgroundColor = 'transparent';
             });
         });
         
-        // Handle mousedown state
+        // Handle mousedown state - Apple style subtle shrink
         document.addEventListener('mousedown', function() {
-            cursorDot.style.transform = `translate(-50%, -50%) scale(0.75)`;
-            cursorOutline.style.transform = `translate(-50%, -50%) scale(0.75)`;
+            cursorOutline.style.transform = `translate(${cursorX}px, ${cursorY}px) scale(0.9)`;
         });
         
         // Handle mouseup state
         document.addEventListener('mouseup', function() {
-            cursorDot.style.transform = `translate(-50%, -50%) scale(1)`;
-            cursorOutline.style.transform = `translate(-50%, -50%) scale(1)`;
+            cursorOutline.style.transform = `translate(${cursorX}px, ${cursorY}px) scale(1)`;
         });
     }
 });
