@@ -177,6 +177,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
         const submitButton = contactForm.querySelector('.submit-button');
+        let isSubmitting = false; // Flag to track submission status
         
         // Button press effect
         if (submitButton) {
@@ -195,6 +196,14 @@ document.addEventListener('DOMContentLoaded', function() {
         
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
+            
+            // Prevent duplicate submissions
+            if (isSubmitting) {
+                console.log('Form submission already in progress');
+                return;
+            }
+            
+            isSubmitting = true;
             
             // Get form data
             const formData = {
@@ -228,6 +237,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     submitButton.innerHTML = originalButtonText;
                     submitButton.disabled = false;
                     contactForm.reset();
+                    isSubmitting = false; // Reset submission flag
                 }, 2000);
             })
             .catch(function(error) {
@@ -239,6 +249,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 setTimeout(() => {
                     submitButton.innerHTML = originalButtonText;
                     submitButton.disabled = false;
+                    isSubmitting = false; // Reset submission flag
                 }, 2000);
             });
         });
