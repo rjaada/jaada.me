@@ -219,13 +219,12 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Send the email using EmailJS
             emailjs.send(
-                'service_nrydb0o', // Your service ID
-                'template_ai2rgih', // Your template ID
+                'service_3aa4gas', // Your service ID
+                'template_h3ronh8', // Your template ID
                 {
-                    from_name: formData.name, // The sender's name
-                    name: formData.name, // Required for the template
-                    from_email: formData.email, // The sender's email
-                    message: formData.message // The message content
+                    name: formData.name, // Sender's name for template
+                    message: formData.message, // The message content
+                    from_email: formData.email // Sender's email (for your reference)
                 }
             )
             .then(function() {
