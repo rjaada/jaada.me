@@ -177,7 +177,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
         const submitButton = contactForm.querySelector('.submit-button');
-        let isSubmitting = false; // Flag to track submission status
         
         // Button press effect
         if (submitButton) {
@@ -194,60 +193,11 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
         
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Prevent duplicate submissions
-            if (isSubmitting) {
-                console.log('Form submission already in progress');
-                return;
-            }
-            
-            isSubmitting = true;
-            
-            // Show loading state
-            const originalButtonText = submitButton.innerHTML;
+        // Add loading state to button but let the form submit naturally
+        contactForm.addEventListener('submit', function() {
             submitButton.innerHTML = '<span>Sending...</span>';
             submitButton.disabled = true;
-            
-            // Get form data
-            const formData = new FormData(this);
-            
-            // Submit form using fetch API
-            fetch(this.action, {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => {
-                if (response.ok) {
-                    // Success message
-                    submitButton.innerHTML = '<span>Message Sent!</span>';
-                    
-                    // Reset form after 2 seconds
-                    setTimeout(() => {
-                        submitButton.innerHTML = originalButtonText;
-                        submitButton.disabled = false;
-                        contactForm.reset();
-                        isSubmitting = false; // Reset submission flag
-                    }, 2000);
-                    
-                    return response.json();
-                } else {
-                    throw new Error('Network response was not ok');
-                }
-            })
-            .catch(error => {
-                // Error handling
-                console.error('Submission failed:', error);
-                submitButton.innerHTML = '<span>Sending Failed</span>';
-                
-                // Reset button after 2 seconds
-                setTimeout(() => {
-                    submitButton.innerHTML = originalButtonText;
-                    submitButton.disabled = false;
-                    isSubmitting = false; // Reset submission flag
-                }, 2000);
-            });
+            // Form will now submit naturally to Web3Forms
         });
     }
 
