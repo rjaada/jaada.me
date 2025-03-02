@@ -127,8 +127,17 @@ html[data-theme="dark"] .navbar {
     width: 16px;
     height: 16px;
     color: var(--primary-color);
-    margin: 0 5px;
+    margin: 0;
     z-index: 2;
+    position: relative;
+}
+
+.theme-toggle .moon-icon {
+    left: 4px;
+}
+
+.theme-toggle .sun-icon {
+    right: 4px;
 }
 
 .toggle-thumb {
@@ -234,6 +243,7 @@ html[data-theme="dark"] .toggle-thumb {
     overflow: hidden;
     transition: all 0.3s ease;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+    background-color: var(--bg-alt);
 }
 
 .mobile-theme-toggle:hover, .mobile-theme-toggle:active {
@@ -246,8 +256,17 @@ html[data-theme="dark"] .toggle-thumb {
     width: 16px;
     height: 16px;
     color: var(--primary-color);
-    margin: 0 3px;
+    margin: 0;
     z-index: 2;
+    position: relative;
+}
+
+.mobile-theme-toggle .mobile-moon-icon {
+    left: 3px;
+}
+
+.mobile-theme-toggle .mobile-sun-icon {
+    right: 3px;
 }
 
 .mobile-toggle-thumb {
