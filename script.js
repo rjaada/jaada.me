@@ -1,111 +1,167 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Ensure Feather icons are initialized first
-    feather.replace();
+    console.log('DOM fully loaded and parsed');
     
-    // Theme initialization
-    const themeToggle = document.querySelector('.theme-toggle');
-    const mobileThemeToggle = document.querySelector('.mobile-theme-toggle');
-    const moonIcon = document.querySelector('.moon-icon');
-    const sunIcon = document.querySelector('.sun-icon');
-    const mobileMoonIcon = document.querySelector('.mobile-moon-icon');
-    const mobileSunIcon = document.querySelector('.mobile-sun-icon');
-    const navLogo = document.querySelector('.nav-logo');
-    const heroLogo = document.querySelector('.hero-logo');
-    const menuIcon = document.querySelector('.mobile-menu-button svg');
+    // Ensure Feather icons are loaded first
+    if (typeof feather !== 'undefined') {
+        feather.replace();
+        console.log('Feather icons initialized on page load');
+    } else {
+        console.error('Feather library not available on page load');
+    }
     
-    // Check for saved theme preference or prefer-color-scheme
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
-    // Function to update logos based on theme
-    function updateLogos(theme) {
-        if (theme === 'dark') {
-            if (navLogo) navLogo.src = 'photos/JR_logo_white.png';
-            if (heroLogo) heroLogo.src = 'photos/JR_logo_white.png';
+    // ==== THEME TOGGLE FUNCTIONALITY ====
+    function setupThemeToggle() {
+        console.log('Setting up theme toggle...');
+        
+        // Get theme toggle elements
+        const themeToggleBtn = document.querySelector('.theme-toggle');
+        const mobileThemeToggleBtn = document.querySelector('.mobile-theme-toggle');
+        const moonIcon = document.querySelector('.moon-icon');
+        const sunIcon = document.querySelector('.sun-icon');
+        const mobileMoonIcon = document.querySelector('.mobile-moon-icon'); 
+        const mobileSunIcon = document.querySelector('.mobile-sun-icon');
+        
+        // Check if elements exist
+        if (!themeToggleBtn) console.error('Theme toggle button not found');
+        if (!moonIcon || !sunIcon) console.error('Theme icons not found');
+        
+        // Get saved theme from localStorage
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        // Set initial theme
+        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+            setTheme('dark');
         } else {
-            if (navLogo) navLogo.src = 'photos/JR_logo.png';
-            if (heroLogo) heroLogo.src = 'photos/JR_logo.png';
+            setTheme('light');
+        }
+        
+        // Function to toggle theme
+        function toggleTheme() {
+            console.log('Theme toggle clicked');
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            setTheme(newTheme);
+        }
+        
+        // Function to set theme
+        function setTheme(theme) {
+            console.log('Setting theme to:', theme);
+            
+            // Set HTML attribute and style
+            document.documentElement.setAttribute('data-theme', theme);
+            document.documentElement.style.colorScheme = theme;
+            localStorage.setItem('theme', theme);
+            
+            // Update icons
+            if (moonIcon && sunIcon) {
+                moonIcon.style.display = theme === 'dark' ? 'none' : 'block';
+                sunIcon.style.display = theme === 'dark' ? 'block' : 'none';
+            }
+            
+            if (mobileMoonIcon && mobileSunIcon) {
+                mobileMoonIcon.style.display = theme === 'dark' ? 'none' : 'block';
+                mobileSunIcon.style.display = theme === 'dark' ? 'block' : 'none';
+            }
+            
+            // Update toggle thumbs
+            const toggleThumb = document.querySelector('.toggle-thumb');
+            const mobileToggleThumb = document.querySelector('.mobile-toggle-thumb');
+            
+            if (toggleThumb) {
+                toggleThumb.style.transform = theme === 'dark' ? 'translateX(26px)' : 'translateX(0)';
+            }
+            
+            if (mobileToggleThumb) {
+                mobileToggleThumb.style.transform = theme === 'dark' ? 'translateX(26px)' : 'translateX(0)';
+            }
+            
+            // Update logos
+            const navLogo = document.querySelector('.nav-logo');
+            const heroLogo = document.querySelector('.hero-logo');
+            
+            if (navLogo) navLogo.src = theme === 'dark' ? 'photos/JR_logo_white.png' : 'photos/JR_logo.png';
+            if (heroLogo) heroLogo.src = theme === 'dark' ? 'photos/JR_logo_white.png' : 'photos/JR_logo.png';
+            
+            // Update Feather icons
+            if (typeof feather !== 'undefined') {
+                feather.replace();
+            }
+        }
+        
+        // Add click event listeners
+        if (themeToggleBtn) {
+            console.log('Adding click event to theme toggle button');
+            themeToggleBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                console.log('Theme toggle button clicked');
+                toggleTheme();
+            });
+        }
+        
+        if (mobileThemeToggleBtn) {
+            console.log('Adding click event to mobile theme toggle button');
+            mobileThemeToggleBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                console.log('Mobile theme toggle button clicked');
+                toggleTheme();
+            });
         }
     }
     
-    // Function to update theme toggle icons
-    function updateThemeToggleIcons(isDark) {
-        // Update main toggle icons
-        if (moonIcon && sunIcon) {
-            moonIcon.style.display = isDark ? 'none' : 'block';
-            sunIcon.style.display = isDark ? 'block' : 'none';
+    // ==== MOBILE MENU FUNCTIONALITY ====
+    function setupMobileMenu() {
+        console.log('Setting up mobile menu...');
+        
+        const menuButton = document.querySelector('.mobile-menu-button');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        
+        if (!menuButton) {
+            console.error('Mobile menu button not found');
+            return;
         }
         
-        // Update mobile toggle icons
-        if (mobileMoonIcon && mobileSunIcon) {
-            mobileMoonIcon.style.display = isDark ? 'none' : 'block';
-            mobileSunIcon.style.display = isDark ? 'block' : 'none';
+        if (!mobileMenu) {
+            console.error('Mobile menu not found');
+            return;
         }
-    }
-    
-    // Function to toggle theme
-    function toggleTheme() {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
         
-        // Toggle theme
-        document.documentElement.setAttribute('data-theme', newTheme);
-        document.documentElement.style.colorScheme = newTheme;
-        localStorage.setItem('theme', newTheme);
-        
-        // Update icons
-        updateThemeToggleIcons(newTheme === 'dark');
-        
-        // Update logos
-        updateLogos(newTheme);
-        
-        // Subtle animation for theme change
-        document.body.style.transition = 'background-color 0.5s ease, color 0.5s ease';
-        
-        // Update feather icons
-        updateFeatherIcons();
-    }
-    
-    // Set initial theme based on saved preference or system preference
-    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        document.documentElement.style.colorScheme = 'dark';
-        updateThemeToggleIcons(true);
-        updateLogos('dark');
-    }
-    
-    // Theme toggle functionality
-    if (themeToggle) {
-        themeToggle.addEventListener('click', toggleTheme);
-    }
-    
-    // Mobile theme toggle functionality
-    if (mobileThemeToggle) {
-        mobileThemeToggle.addEventListener('click', toggleTheme);
-    }
-
-    // Mobile menu toggle
-    const menuButton = document.querySelector('.mobile-menu-button');
-    const mobileMenu = document.querySelector('.mobile-menu');
-
-    if (menuButton && mobileMenu) {
-        // Ensure proper event binding
+        // Add click event to menu button
         menuButton.addEventListener('click', function(e) {
-            e.stopPropagation(); // Prevent event bubbling
+            e.stopPropagation();
+            console.log('Mobile menu button clicked');
             mobileMenu.classList.toggle('active');
-            console.log('Mobile menu toggled:', mobileMenu.classList.contains('active'));
         });
-
-        // Close mobile menu when clicking outside
+        
+        // Close menu when clicking outside
         document.addEventListener('click', function(e) {
             if (mobileMenu.classList.contains('active') && 
                 !menuButton.contains(e.target) && 
                 !mobileMenu.contains(e.target)) {
+                console.log('Clicked outside mobile menu, closing');
                 mobileMenu.classList.remove('active');
             }
         });
+        
+        // Close menu when clicking on menu links
+        const mobileMenuLinks = mobileMenu.querySelectorAll('a[href^="#"]');
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                console.log('Mobile menu link clicked, closing menu');
+                mobileMenu.classList.remove('active');
+            });
+        });
     }
-
+    
+    // Initialize theme toggle and mobile menu
+    setupThemeToggle();
+    setupMobileMenu();
+    
+    // Theme initialization
+    const navLogo = document.querySelector('.nav-logo');
+    const heroLogo = document.querySelector('.hero-logo');
+    const menuIcon = document.querySelector('.mobile-menu-button svg');
+    
     // Smooth scroll for navigation links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -262,19 +318,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     }
-
-    // Ensure feather icons update with theme changes
-    function updateFeatherIcons() {
-        if (typeof feather !== 'undefined') {
-            feather.replace();
-            console.log('Feather icons updated');
-        } else {
-            console.error('Feather library not loaded');
-        }
-    }
-    
-    // Initial feather icons update
-    updateFeatherIcons();
 
     // Project modal functionality
     const projectModal = document.getElementById('project-modal');

@@ -141,6 +141,7 @@ html[data-theme="dark"] .toggle-thumb {
 /* Mobile menu */
 .mobile-menu-container {
     display: none;
+    position: relative;
 }
 
 .mobile-menu-button {
@@ -148,10 +149,21 @@ html[data-theme="dark"] .toggle-thumb {
     border: none;
     cursor: pointer;
     padding: 0.5rem;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s ease;
+}
+
+.mobile-menu-button:hover {
+    opacity: 0.7;
 }
 
 .mobile-menu-button svg {
     color: var(--primary-color);
+    width: 24px;
+    height: 24px;
 }
 
 .mobile-menu {
@@ -160,15 +172,21 @@ html[data-theme="dark"] .toggle-thumb {
     top: 100%;
     right: 0;
     background-color: var(--background-color);
-    padding: 1rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
     border: 2px solid var(--border-color);
-    min-width: 200px;
+    min-width: 220px;
+    z-index: 100;
+    transform: translateY(10px);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .mobile-menu.active {
     display: block;
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .mobile-nav-links {
@@ -599,6 +617,12 @@ html[data-theme="dark"] .submit-button {
     .mobile-menu-container {
         display: block;
     }
+    
+    .theme-toggle {
+        bottom: 1rem;
+        right: 1rem;
+        z-index: 999;
+    }
 
     .hero-logo {
         height: 120px;
@@ -626,11 +650,6 @@ html[data-theme="dark"] .submit-button {
     
     .section-title::after {
         width: 40px;
-    }
-    
-    /* Hide main theme toggle on mobile */
-    .theme-toggle {
-        display: none;
     }
 }
 
