@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Ensure Feather icons are initialized first
+    feather.replace();
+    
     // Theme initialization
     const themeToggle = document.querySelector('.theme-toggle');
     const mobileThemeToggle = document.querySelector('.mobile-theme-toggle');
@@ -85,16 +88,23 @@ document.addEventListener('DOMContentLoaded', function() {
     const menuButton = document.querySelector('.mobile-menu-button');
     const mobileMenu = document.querySelector('.mobile-menu');
 
-    menuButton.addEventListener('click', () => {
-        mobileMenu.classList.toggle('active');
-    });
+    if (menuButton && mobileMenu) {
+        // Ensure proper event binding
+        menuButton.addEventListener('click', function(e) {
+            e.stopPropagation(); // Prevent event bubbling
+            mobileMenu.classList.toggle('active');
+            console.log('Mobile menu toggled:', mobileMenu.classList.contains('active'));
+        });
 
-    // Close mobile menu when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!menuButton.contains(e.target) && !mobileMenu.contains(e.target)) {
-            mobileMenu.classList.remove('active');
-        }
-    });
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (mobileMenu.classList.contains('active') && 
+                !menuButton.contains(e.target) && 
+                !mobileMenu.contains(e.target)) {
+                mobileMenu.classList.remove('active');
+            }
+        });
+    }
 
     // Smooth scroll for navigation links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -255,7 +265,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Ensure feather icons update with theme changes
     function updateFeatherIcons() {
-        feather.replace();
+        if (typeof feather !== 'undefined') {
+            feather.replace();
+            console.log('Feather icons updated');
+        } else {
+            console.error('Feather library not loaded');
+        }
     }
     
     // Initial feather icons update

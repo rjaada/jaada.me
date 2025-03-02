@@ -14,7 +14,6 @@
     <link rel="apple-touch-icon" sizes="180x180" href="photos/JR_logo.png">
     <link rel="manifest" href="site.webmanifest">
     <link rel="stylesheet" href="styles.css">
-    <script src="https://unpkg.com/feather-icons"></script>
     <script src="script.js" defer></script>
 </head>
 <body>
@@ -170,11 +169,11 @@
     </div>
     
     <!-- Theme Toggle Button -->
-    <button class="theme-toggle" aria-label="Toggle dark mode">
+    <div class="theme-toggle" aria-label="Toggle dark mode">
         <i data-feather="moon" class="moon-icon"></i>
         <i data-feather="sun" class="sun-icon" style="display: none;"></i>
         <span class="toggle-thumb"></span>
-    </button>
+    </div>
     
     <!-- Project Modal -->
     <div id="project-modal" class="project-modal">
@@ -277,12 +276,6 @@
 
     <!-- Load Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <script>
-        (function() {
-            // Initialize Feather Icons
-            feather.replace();
-        })();
-    </script>
     <script src="script.js"></script>
 </body>
 </html>
