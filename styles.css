@@ -98,20 +98,18 @@ html[data-theme="dark"] .navbar {
     position: fixed;
     bottom: 1.5rem;
     right: 1.5rem;
-    z-index: 990;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     width: 60px;
     height: 30px;
-    background-color: var(--primary-color);
+    background-color: var(--bg-alt);
     border-radius: 30px;
-    padding: 4px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
     cursor: pointer;
     border: none;
     outline: none;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 999;
 }
 
 .theme-toggle .moon-icon,
@@ -178,15 +176,10 @@ html[data-theme="dark"] .toggle-thumb {
     border: 2px solid var(--border-color);
     min-width: 220px;
     z-index: 100;
-    transform: translateY(10px);
-    opacity: 0;
-    transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .mobile-menu.active {
     display: block;
-    opacity: 1;
-    transform: translateY(0);
 }
 
 .mobile-nav-links {
@@ -196,7 +189,7 @@ html[data-theme="dark"] .toggle-thumb {
     gap: 1rem;
 }
 
-/* Mobile dark mode toggle */
+/* Mobile theme toggle styles */
 .mobile-theme-toggle-container {
     display: flex;
     align-items: center;
@@ -207,18 +200,20 @@ html[data-theme="dark"] .toggle-thumb {
 }
 
 .mobile-theme-label {
-    font-weight: 500;
     color: var(--primary-color);
+    font-size: 0.9rem;
+    margin-right: 1rem;
 }
 
 .mobile-theme-toggle {
-    width: 40px;
-    height: 22px;
-    border-radius: 11px;
+    width: 50px;
+    height: 26px;
+    border-radius: 13px;
     background-color: var(--primary-color);
     border: none;
+    outline: none;
     cursor: pointer;
-    padding: 0;
+    padding: 3px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -228,26 +223,27 @@ html[data-theme="dark"] .toggle-thumb {
 
 .mobile-theme-toggle .mobile-moon-icon,
 .mobile-theme-toggle .mobile-sun-icon {
-    width: 14px;
-    height: 14px;
+    width: 16px;
+    height: 16px;
     color: var(--background-color);
-    margin: 0 4px;
+    margin: 0 3px;
     z-index: 2;
 }
 
 .mobile-toggle-thumb {
     position: absolute;
-    top: 3px;
     left: 3px;
-    width: 16px;
-    height: 16px;
+    top: 3px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     background-color: var(--background-color);
     transition: transform 0.3s ease;
+    z-index: 1;
 }
 
 html[data-theme="dark"] .mobile-toggle-thumb {
-    transform: translateX(18px);
+    transform: translateX(24px);
 }
 
 /* Hero Section */
@@ -616,12 +612,45 @@ html[data-theme="dark"] .submit-button {
 
     .mobile-menu-container {
         display: block;
+        position: relative;
     }
     
+    /* Hide main theme toggle on mobile */
     .theme-toggle {
-        bottom: 1rem;
-        right: 1rem;
-        z-index: 999;
+        display: none;
+    }
+    
+    /* Make mobile menu visible and properly positioned */
+    .mobile-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: var(--background-color);
+        padding: 1.5rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        border-radius: 8px;
+        border: 2px solid var(--border-color);
+        min-width: 220px;
+        z-index: 100;
+    }
+    
+    .mobile-menu.active {
+        display: block;
+    }
+    
+    /* Mobile theme toggle styles */
+    .mobile-theme-toggle-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--border-color);
+    }
+    
+    .mobile-theme-toggle {
+        cursor: pointer;
     }
 
     .hero-logo {
@@ -1496,4 +1525,8 @@ html[data-theme="dark"] .project-details .placeholder-block {
 
 .close-success-button:hover {
     background-color: var(--primary-color);
+}
+
+html {
+    cursor: auto; /* Restore default cursor */
 }

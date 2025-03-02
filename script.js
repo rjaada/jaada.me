@@ -4,10 +4,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize Feather icons
     if (typeof feather !== 'undefined') {
         feather.replace();
-        console.log('Feather icons initialized on page load');
+        console.log('Feather icons initialized');
     } else {
-        console.error('Feather library not available on page load');
+        console.error('Feather library not available');
     }
+    
+    // Debug - log elements to verify they exist
+    console.log('Theme toggle button exists:', !!document.querySelector('.theme-toggle'));
+    console.log('Mobile theme toggle button exists:', !!document.querySelector('.mobile-theme-toggle'));
     
     // Theme toggle functionality
     const themeToggle = document.querySelector('.theme-toggle');
@@ -19,34 +23,22 @@ document.addEventListener('DOMContentLoaded', function() {
     const navLogo = document.querySelector('.nav-logo');
     const heroLogo = document.querySelector('.hero-logo');
     
-    // Check for saved theme preference or prefer-color-scheme
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
-    // Set initial theme
-    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        document.documentElement.style.colorScheme = 'dark';
-        if (moonIcon) moonIcon.style.display = 'none';
-        if (sunIcon) sunIcon.style.display = 'block';
-        if (mobileMoonIcon) mobileMoonIcon.style.display = 'none';
-        if (mobileSunIcon) mobileSunIcon.style.display = 'block';
-        if (navLogo) navLogo.src = 'photos/JR_logo_white.png';
-        if (heroLogo) heroLogo.src = 'photos/JR_logo_white.png';
+    // Toggle theme function - simplified for reliability
+    function toggleTheme(e) {
+        // Prevent default if it's a button
+        if (e) e.preventDefault();
         
-        // Move toggle thumb
-        const toggleThumb = document.querySelector('.toggle-thumb');
-        const mobileToggleThumb = document.querySelector('.mobile-toggle-thumb');
-        if (toggleThumb) toggleThumb.style.transform = 'translateX(26px)';
-        if (mobileToggleThumb) mobileToggleThumb.style.transform = 'translateX(26px)';
-    }
-    
-    // Toggle theme function
-    function toggleTheme() {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
+        console.log('Toggle theme clicked');
+        
+        // Get current theme
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+        console.log('Current theme:', currentTheme);
+        
+        // Set new theme
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        console.log('Switching to theme:', newTheme);
         
-        // Update theme
+        // Update document
         document.documentElement.setAttribute('data-theme', newTheme);
         document.documentElement.style.colorScheme = newTheme;
         localStorage.setItem('theme', newTheme);
@@ -73,30 +65,75 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Add event listeners for theme toggle
+    // Set initial theme from localStorage
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    console.log('Saved theme:', savedTheme);
+    console.log('System prefers dark mode:', prefersDark);
+    
+    // Set initial theme
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.documentElement.style.colorScheme = 'dark';
+        
+        // Update display of icons
+        if (moonIcon) moonIcon.style.display = 'none';
+        if (sunIcon) sunIcon.style.display = 'block';
+        if (mobileMoonIcon) mobileMoonIcon.style.display = 'none';
+        if (mobileSunIcon) mobileSunIcon.style.display = 'block';
+        
+        // Update logos
+        if (navLogo) navLogo.src = 'photos/JR_logo_white.png';
+        if (heroLogo) heroLogo.src = 'photos/JR_logo_white.png';
+        
+        // Move toggle thumb
+        const toggleThumb = document.querySelector('.toggle-thumb');
+        const mobileToggleThumb = document.querySelector('.mobile-toggle-thumb');
+        if (toggleThumb) toggleThumb.style.transform = 'translateX(26px)';
+        if (mobileToggleThumb) mobileToggleThumb.style.transform = 'translateX(26px)';
+    }
+    
+    // Add direct onclick handler for theme toggle and mobile theme toggle
     if (themeToggle) {
-        themeToggle.addEventListener('click', toggleTheme);
+        console.log('Adding click event to theme toggle button');
+        themeToggle.onclick = toggleTheme;
     }
     
     if (mobileThemeToggle) {
-        mobileThemeToggle.addEventListener('click', toggleTheme);
+        console.log('Adding click event to mobile theme toggle button');
+        mobileThemeToggle.onclick = toggleTheme;
     }
     
-    // Mobile menu functionality
+    // Mobile menu functionality - FIXED: capture menu elements in a higher scope
     const menuButton = document.querySelector('.mobile-menu-button');
     const mobileMenu = document.querySelector('.mobile-menu');
     
+    console.log('Mobile menu button exists:', !!menuButton);
+    console.log('Mobile menu exists:', !!mobileMenu);
+    
+    // Set up global document click handler for mobile menu closing
     if (menuButton && mobileMenu) {
+        // Register click event on menu button
         menuButton.addEventListener('click', function(e) {
-            e.stopPropagation();
+            e.stopPropagation(); // Prevent event from bubbling to document
+            console.log('Mobile menu button clicked');
             mobileMenu.classList.toggle('active');
+            console.log('Mobile menu active:', mobileMenu.classList.contains('active'));
         });
         
+        // Set up document click handler to close menu when clicking outside
+        // This is a SEPARATE handler from the menu button click
         document.addEventListener('click', function(e) {
-            if (mobileMenu.classList.contains('active') && 
-                !menuButton.contains(e.target) && 
-                !mobileMenu.contains(e.target)) {
-                mobileMenu.classList.remove('active');
+            // Only proceed if mobileMenu exists and is active
+            const menu = document.querySelector('.mobile-menu');
+            const button = document.querySelector('.mobile-menu-button');
+            
+            if (menu && menu.classList.contains('active') && 
+                button && !button.contains(e.target) && 
+                !menu.contains(e.target)) {
+                console.log('Clicked outside mobile menu, closing');
+                menu.classList.remove('active');
             }
         });
         
@@ -104,6 +141,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const mobileMenuLinks = mobileMenu.querySelectorAll('a[href^="#"]');
         mobileMenuLinks.forEach(link => {
             link.addEventListener('click', function() {
+                console.log('Mobile menu link clicked, closing menu');
                 mobileMenu.classList.remove('active');
             });
         });
