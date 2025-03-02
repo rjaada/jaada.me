@@ -107,7 +107,6 @@ html[data-theme="dark"] .navbar {
     padding: 5px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
     cursor: pointer;
     border: none;
     outline: none;
@@ -122,22 +121,10 @@ html[data-theme="dark"] .navbar {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
+/* Hide the icons but keep the switch */
 .theme-toggle .moon-icon,
 .theme-toggle .sun-icon {
-    width: 16px;
-    height: 16px;
-    color: var(--primary-color);
-    margin: 0;
-    z-index: 2;
-    position: relative;
-}
-
-.theme-toggle .moon-icon {
-    left: 4px;
-}
-
-.theme-toggle .sun-icon {
-    right: 4px;
+    display: none;
 }
 
 .toggle-thumb {
@@ -231,19 +218,17 @@ html[data-theme="dark"] .toggle-thumb {
     width: 50px;
     height: 26px;
     border-radius: 13px;
-    background-color: var(--primary-color);
+    background-color: var(--bg-alt);
     border: none;
     outline: none;
     cursor: pointer;
     padding: 3px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
     position: relative;
     overflow: hidden;
     transition: all 0.3s ease;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
-    background-color: var(--bg-alt);
 }
 
 .mobile-theme-toggle:hover, .mobile-theme-toggle:active {
@@ -251,22 +236,10 @@ html[data-theme="dark"] .toggle-thumb {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
+/* Hide the icons but keep the switch */
 .mobile-theme-toggle .mobile-moon-icon,
 .mobile-theme-toggle .mobile-sun-icon {
-    width: 16px;
-    height: 16px;
-    color: var(--primary-color);
-    margin: 0;
-    z-index: 2;
-    position: relative;
-}
-
-.mobile-theme-toggle .mobile-moon-icon {
-    left: 3px;
-}
-
-.mobile-theme-toggle .mobile-sun-icon {
-    right: 3px;
+    display: none;
 }
 
 .mobile-toggle-thumb {
