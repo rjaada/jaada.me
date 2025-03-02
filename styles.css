@@ -7,6 +7,7 @@
     --text-color-light: #555555;
     --border-color: #888888;
     --font-family: "Outfit", sans-serif;
+    --bg-alt: #eeeeee;
 }
 
 html[data-theme="dark"] {
@@ -17,6 +18,7 @@ html[data-theme="dark"] {
     --text-color: #e0e0e0;
     --text-color-light: #a0a0a0;
     --border-color: #555555;
+    --bg-alt: #2a2a2a;
 }
 
 * {
@@ -105,35 +107,45 @@ html[data-theme="dark"] .navbar {
     padding: 5px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     cursor: pointer;
     border: none;
     outline: none;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     z-index: 999;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .theme-toggle .moon-icon,
 .theme-toggle .sun-icon {
     width: 16px;
     height: 16px;
-    color: var(--background-color);
+    color: var(--primary-color);
     margin: 0 5px;
     z-index: 2;
 }
 
 .toggle-thumb {
     position: absolute;
-    top: 3px;
-    left: 3px;
+    top: 5px;
+    left: 5px;
     width: 20px;
     height: 20px;
     border-radius: 50%;
     background-color: var(--background-color);
     transition: transform 0.3s ease;
+    z-index: 1;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 html[data-theme="dark"] .toggle-thumb {
-    transform: translateX(26px);
+    transform: translateX(30px);
 }
 
 /* Mobile menu */
@@ -203,6 +215,7 @@ html[data-theme="dark"] .toggle-thumb {
     color: var(--primary-color);
     font-size: 0.9rem;
     margin-right: 1rem;
+    font-weight: 500;
 }
 
 .mobile-theme-toggle {
@@ -219,13 +232,20 @@ html[data-theme="dark"] .toggle-thumb {
     justify-content: space-between;
     position: relative;
     overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.mobile-theme-toggle:hover, .mobile-theme-toggle:active {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .mobile-theme-toggle .mobile-moon-icon,
 .mobile-theme-toggle .mobile-sun-icon {
     width: 16px;
     height: 16px;
-    color: var(--background-color);
+    color: var(--primary-color);
     margin: 0 3px;
     z-index: 2;
 }
@@ -240,6 +260,7 @@ html[data-theme="dark"] .toggle-thumb {
     background-color: var(--background-color);
     transition: transform 0.3s ease;
     z-index: 1;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 html[data-theme="dark"] .mobile-toggle-thumb {

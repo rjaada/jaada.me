@@ -56,8 +56,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Move toggle thumb
         const toggleThumb = document.querySelector('.toggle-thumb');
         const mobileToggleThumb = document.querySelector('.mobile-toggle-thumb');
-        if (toggleThumb) toggleThumb.style.transform = newTheme === 'dark' ? 'translateX(26px)' : 'translateX(0)';
-        if (mobileToggleThumb) mobileToggleThumb.style.transform = newTheme === 'dark' ? 'translateX(26px)' : 'translateX(0)';
+        if (toggleThumb) toggleThumb.style.transform = newTheme === 'dark' ? 'translateX(30px)' : 'translateX(0)';
+        if (mobileToggleThumb) mobileToggleThumb.style.transform = newTheme === 'dark' ? 'translateX(24px)' : 'translateX(0)';
         
         // Update feather icons
         if (typeof feather !== 'undefined') {
@@ -90,8 +90,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Move toggle thumb
         const toggleThumb = document.querySelector('.toggle-thumb');
         const mobileToggleThumb = document.querySelector('.mobile-toggle-thumb');
-        if (toggleThumb) toggleThumb.style.transform = 'translateX(26px)';
-        if (mobileToggleThumb) mobileToggleThumb.style.transform = 'translateX(26px)';
+        if (toggleThumb) toggleThumb.style.transform = 'translateX(30px)';
+        if (mobileToggleThumb) mobileToggleThumb.style.transform = 'translateX(24px)';
     }
     
     // Add direct onclick handler for theme toggle and mobile theme toggle
