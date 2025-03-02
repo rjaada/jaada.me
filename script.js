@@ -17,6 +17,83 @@ document.addEventListener('DOMContentLoaded', function() {
         document.head.appendChild(script);
     }
     
+    // Animated text functionality
+    const animateWords = document.querySelectorAll('.animate-word');
+    const animateParagraph = document.querySelector('.statement-description');
+    const sectionLabel = document.querySelector('.section-label.animate-on-scroll');
+    const statementContainer = document.querySelector('.statement-text-container');
+    
+    // New scroll-based word animation
+    function animateWordsOnScroll() {
+        if (!statementContainer || animateWords.length === 0) return;
+        
+        const containerPosition = statementContainer.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        
+        // Create a more direct relationship between scroll position and animation
+        // Value will be 0 when at the top of container, and 1 when container is at top of viewport
+        const scrollProgress = Math.min(Math.max((windowHeight - containerPosition.top) / windowHeight, 0), 1);
+        
+        // First handle the section label
+        if (sectionLabel) {
+            if (scrollProgress > 0.1) {
+                sectionLabel.classList.add('visible');
+            } else {
+                sectionLabel.classList.remove('visible');
+            }
+        }
+        
+        // Simple direct mapping: as you scroll, words appear in sequence
+        const totalWords = animateWords.length;
+        
+        // Animate each word directly based on scroll progress
+        animateWords.forEach((word, index) => {
+            // Create evenly spaced thresholds across the scroll range
+            // First word appears at 20% scroll, last word at 80% scroll
+            const wordThreshold = 0.2 + (0.6 * (index / (totalWords - 1)));
+            
+            if (scrollProgress >= wordThreshold) {
+                word.classList.add('visible');
+            } else {
+                word.classList.remove('visible');
+            }
+        });
+        
+        // Finally handle the paragraph
+        if (animateParagraph) {
+            if (scrollProgress >= 0.85) {
+                animateParagraph.classList.add('visible');
+            } else {
+                animateParagraph.classList.remove('visible');
+            }
+        }
+    }
+    
+    // Replace the old animation check with our new scroll-based animation
+    window.addEventListener('scroll', animateWordsOnScroll);
+    window.addEventListener('load', function() {
+        // Delay the initial check to ensure proper rendering
+        setTimeout(animateWordsOnScroll, 300);
+    });
+    
+    // Scroll arrow functionality
+    const scrollArrow = document.querySelector('.scroll-arrow');
+    let lastScrollTop = 0;
+    
+    // Hide arrow on scroll
+    window.addEventListener('scroll', function() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        // If scrolled down more than 100px, hide the arrow
+        if (scrollTop > 100) {
+            scrollArrow.classList.add('hidden');
+        } else {
+            scrollArrow.classList.remove('hidden');
+        }
+        
+        lastScrollTop = scrollTop;
+    });
+    
     // Debug - log elements to verify they exist
     console.log('Theme toggle button exists:', !!document.querySelector('.theme-toggle'));
     console.log('Mobile theme toggle button exists:', !!document.querySelector('.mobile-theme-toggle'));
@@ -28,43 +105,87 @@ document.addEventListener('DOMContentLoaded', function() {
     const heroLogo = document.querySelector('.hero-logo');
     
     // Toggle theme function - simplified for reliability
-    function toggleTheme(e) {
-        // Prevent default if it's a button
-        if (e) {
-            e.preventDefault();
-            e.stopPropagation(); // Prevent event bubbling
-            console.log('Toggle clicked:', e.currentTarget.className);
-        }
+    function toggleTheme() {
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        const logoElement = document.querySelector('.hero-logo');
+        const navLogoElement = document.querySelector('.nav-logo');
         
-        console.log('Toggle theme clicked');
-        
-        // Get current theme
-        const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
-        console.log('Current theme:', currentTheme);
-        
-        // Set new theme
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        console.log('Switching to theme:', newTheme);
-        
-        // Update document
         document.documentElement.setAttribute('data-theme', newTheme);
-        document.documentElement.style.colorScheme = newTheme;
         localStorage.setItem('theme', newTheme);
         
-        // Update logos
-        if (navLogo) navLogo.src = newTheme === 'dark' ? 'photos/JR_logo_white.png' : 'photos/JR_logo.png';
-        if (heroLogo) heroLogo.src = newTheme === 'dark' ? 'photos/JR_logo_white.png' : 'photos/JR_logo.png';
+        console.log('Toggled theme to:', newTheme);
         
-        // Move toggle thumb (CSS handles this automatically, but we set it explicitly for reliability)
-        const toggleThumb = document.querySelector('.toggle-thumb');
-        const mobileToggleThumb = document.querySelector('.mobile-toggle-thumb');
-        if (toggleThumb) toggleThumb.style.transform = newTheme === 'dark' ? 'translateX(30px)' : 'translateX(0)';
-        if (mobileToggleThumb) mobileToggleThumb.style.transform = newTheme === 'dark' ? 'translateX(24px)' : 'translateX(0)';
-        
-        // Update feather icons
-        if (typeof feather !== 'undefined') {
-            feather.replace();
+        // Update logo based on theme
+        if (logoElement) {
+            if (newTheme === 'dark') {
+                logoElement.src = 'photos/JR_logo_white.png';
+                console.log('Updated hero logo to white PNG');
+            } else {
+                logoElement.src = 'photos/JR_logo.png';
+                console.log('Updated hero logo to standard PNG');
+            }
         }
+        
+        // Update nav logo based on theme
+        if (navLogoElement) {
+            if (newTheme === 'dark') {
+                navLogoElement.src = 'photos/JR_logo_white.png';
+                console.log('Updated nav logo to white PNG');
+            } else {
+                navLogoElement.src = 'photos/JR_logo.png';
+                console.log('Updated nav logo to standard PNG');
+            }
+        }
+    }
+    
+    // Function to update logo based on current theme
+    function updateLogoBasedOnTheme() {
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        const logoElement = document.querySelector('.hero-logo');
+        const navLogoElement = document.querySelector('.nav-logo');
+        
+        console.log('Current theme for logo update:', currentTheme);
+        
+        if (logoElement) {
+            const currentSrc = logoElement.src;
+            console.log('Current hero logo src:', currentSrc);
+            
+            if (currentTheme === 'dark' && !currentSrc.includes('JR_logo_white.png')) {
+                logoElement.src = 'photos/JR_logo_white.png';
+                console.log('Updated hero logo to white PNG');
+            } else if (currentTheme === 'light' && !currentSrc.includes('JR_logo.png')) {
+                logoElement.src = 'photos/JR_logo.png';
+                console.log('Updated hero logo to standard PNG');
+            }
+        }
+        
+        if (navLogoElement) {
+            const currentNavSrc = navLogoElement.src;
+            console.log('Current nav logo src:', currentNavSrc);
+            
+            if (currentTheme === 'dark' && !currentNavSrc.includes('JR_logo_white.png')) {
+                navLogoElement.src = 'photos/JR_logo_white.png';
+                console.log('Updated nav logo to white PNG');
+            } else if (currentTheme === 'light' && !currentNavSrc.includes('JR_logo.png')) {
+                navLogoElement.src = 'photos/JR_logo.png';
+                console.log('Updated nav logo to standard PNG');
+            }
+        }
+    }
+    
+    // On page load, set the theme based on local storage
+    function initTheme() {
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        console.log('Initial theme from storage:', savedTheme);
+        
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        
+        // Set initial logo based on current theme
+        updateLogoBasedOnTheme();
+        
+        // Attach event listeners to theme toggles
+        attachThemeToggleListeners();
     }
     
     // Set initial theme from localStorage
@@ -76,12 +197,25 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Set initial theme
     if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        console.log('Setting initial dark theme');
         document.documentElement.setAttribute('data-theme', 'dark');
         document.documentElement.style.colorScheme = 'dark';
         
-        // Update logos
-        if (navLogo) navLogo.src = 'photos/JR_logo_white.png';
-        if (heroLogo) heroLogo.src = 'photos/JR_logo_white.png';
+        // Update logos - force setting the correct paths
+        setTimeout(() => {
+            const navLogo = document.querySelector('.nav-logo');
+            const heroLogo = document.querySelector('.hero-logo');
+            
+            if (navLogo) {
+                console.log('Setting nav logo to white version');
+                navLogo.src = 'photos/JR_logo_white.png';
+            }
+            
+            if (heroLogo) {
+                console.log('Setting hero logo to white version');
+                heroLogo.src = 'photos/JR_logo_white.png';
+            }
+        }, 10);
         
         // Move toggle thumb
         const toggleThumb = document.querySelector('.toggle-thumb');
@@ -112,9 +246,6 @@ document.addEventListener('DOMContentLoaded', function() {
             newMobileToggle.addEventListener('click', toggleTheme);
         }
     }
-    
-    // Attach theme toggle listeners
-    attachThemeToggleListeners();
     
     // Mobile menu functionality - improved for reliability
     const menuButton = document.querySelector('.mobile-menu-button');
@@ -799,4 +930,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('.explorer-container').addEventListener('click', function(e) {
         e.stopPropagation();
     });
+
+    // Initialize theme on page load
+    initTheme();
 });
