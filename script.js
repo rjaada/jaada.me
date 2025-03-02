@@ -30,7 +30,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Toggle theme function - simplified for reliability
     function toggleTheme(e) {
         // Prevent default if it's a button
-        if (e) e.preventDefault();
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation(); // Prevent event bubbling
+            console.log('Toggle clicked:', e.currentTarget.className);
+        }
         
         console.log('Toggle theme clicked');
         
@@ -86,16 +90,31 @@ document.addEventListener('DOMContentLoaded', function() {
         if (mobileToggleThumb) mobileToggleThumb.style.transform = 'translateX(24px)';
     }
     
-    // Add event listeners for theme toggles
-    if (themeToggle) {
-        console.log('Adding click event to theme toggle button');
-        themeToggle.addEventListener('click', toggleTheme);
+    // Function to attach event listeners to theme toggles
+    function attachThemeToggleListeners() {
+        // Desktop theme toggle
+        const desktopToggle = document.querySelector('.theme-toggle');
+        if (desktopToggle) {
+            console.log('Adding click event to desktop theme toggle button');
+            // Remove any existing listeners and create a clone
+            const newDesktopToggle = desktopToggle.cloneNode(true);
+            desktopToggle.parentNode.replaceChild(newDesktopToggle, desktopToggle);
+            newDesktopToggle.addEventListener('click', toggleTheme);
+        }
+        
+        // Mobile theme toggle
+        const mobileToggle = document.querySelector('.mobile-theme-toggle');
+        if (mobileToggle) {
+            console.log('Adding click event to mobile theme toggle button');
+            // Remove any existing listeners and create a clone
+            const newMobileToggle = mobileToggle.cloneNode(true);
+            mobileToggle.parentNode.replaceChild(newMobileToggle, mobileToggle);
+            newMobileToggle.addEventListener('click', toggleTheme);
+        }
     }
     
-    if (mobileThemeToggle) {
-        console.log('Adding click event to mobile theme toggle button');
-        mobileThemeToggle.addEventListener('click', toggleTheme);
-    }
+    // Attach theme toggle listeners
+    attachThemeToggleListeners();
     
     // Mobile menu functionality - improved for reliability
     const menuButton = document.querySelector('.mobile-menu-button');
@@ -145,13 +164,21 @@ document.addEventListener('DOMContentLoaded', function() {
             if (typeof feather !== 'undefined') {
                 feather.replace();
             }
+            
+            // Reattach theme toggle listeners to ensure they work properly
+            setTimeout(() => {
+                attachThemeToggleListeners();
+                console.log('Reattached theme toggle listeners after menu interaction');
+            }, 50);
         });
         
         // Close when clicking outside
         document.addEventListener('click', function(e) {
+            const mobileThemeToggle = document.querySelector('.mobile-theme-toggle');
             if (mobileMenu.classList.contains('active') && 
                 !mobileMenu.contains(e.target) && 
-                !newMenuButton.contains(e.target)) {
+                !newMenuButton.contains(e.target) &&
+                (!mobileThemeToggle || !mobileThemeToggle.contains(e.target))) {
                 mobileMenu.classList.remove('active');
                 console.log('Closed menu by clicking outside');
             }
