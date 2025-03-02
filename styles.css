@@ -359,7 +359,7 @@ html[data-theme="dark"] .mobile-toggle-thumb {
 /* Mobile styles for hero section */
 @media (max-width: 768px) {
     .hero-section {
-        padding: clamp(5vh, 8vh, 10vh) 20px clamp(3vh, 5vh, 8vh);
+        padding: 0;
         height: 100vh;
         display: flex;
         flex-direction: column;
@@ -367,43 +367,42 @@ html[data-theme="dark"] .mobile-toggle-thumb {
     }
 
     .hero-content {
-        flex: 1;
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        align-items: center;
+        margin-top: 18vh;
     }
 
     .logo-title {
         flex-direction: column;
-        gap: clamp(4vh, 6vh, 8vh);
+        gap: 8vh;
     }
 
     .hero-logo {
-        height: min(180px, 40vw);
-        max-width: min(180px, 40vw);
+        height: min(280px, 65vw);
+        max-width: min(280px, 65vw);
         object-fit: contain;
         margin: 0 auto;
     }
 
     .hero-heading {
-        font-size: clamp(3.5rem, 15vw, 6.5rem);
+        font-size: clamp(5rem, 22vw, 8rem);
         margin: 0;
-        line-height: 1.1;
+        line-height: 1;
+        letter-spacing: -2px;
     }
     
     .scroll-container {
-        position: static;
-        margin-top: auto;
-        margin-bottom: clamp(2vh, 4vh, 5vh);
+        margin-bottom: 15vh;
         align-self: center;
     }
 
     /* Mobile-specific style for the Explore button */
     .boton-elegante {
-        font-size: clamp(1rem, 5vw, 1.3rem);
-        padding: clamp(10px, 4vw, 15px) clamp(25px, 8vw, 40px);
+        font-size: clamp(1.2rem, 6vw, 1.5rem);
+        padding: clamp(14px, 5vw, 20px) clamp(35px, 12vw, 50px);
         border-width: 2px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
     }
     
     /* Ensure the nav doesn't take too much space on mobile */
