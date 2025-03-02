@@ -7,6 +7,14 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Feather icons initialized');
     } else {
         console.error('Feather library not available');
+        // Try to load Feather icons if not available
+        const script = document.createElement('script');
+        script.src = 'https://unpkg.com/feather-icons/dist/feather.min.js';
+        script.onload = function() {
+            console.log('Feather icons loaded dynamically');
+            feather.replace();
+        };
+        document.head.appendChild(script);
     }
     
     // Debug - log elements to verify they exist
@@ -98,21 +106,52 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Mobile menu toggle
     if (menuButton && mobileMenu) {
-        menuButton.addEventListener('click', function(e) {
+        // Remove any existing event listeners
+        const newMenuButton = menuButton.cloneNode(true);
+        menuButton.parentNode.replaceChild(newMenuButton, menuButton);
+        
+        // Add event listener to the new button
+        newMenuButton.addEventListener('click', function(e) {
+            console.log('Mobile menu button clicked');
             e.preventDefault();
             e.stopPropagation(); // Prevent closing immediately due to document click
-            console.log('Mobile menu button clicked');
             
-            // Toggle the menu visibility
+            // Toggle the menu visibility with animation
+            mobileMenu.style.opacity = mobileMenu.classList.contains('active') ? '0' : '1';
             mobileMenu.classList.toggle('active');
-            console.log('Mobile menu active:', mobileMenu.classList.contains('active'));
+            
+            if (mobileMenu.classList.contains('active')) {
+                // Set initial state for animation
+                mobileMenu.style.opacity = '0';
+                mobileMenu.style.transform = 'translateY(-10px)';
+                
+                // Trigger animation after a small delay to ensure the display change has taken effect
+                setTimeout(() => {
+                    mobileMenu.style.opacity = '1';
+                    mobileMenu.style.transform = 'translateY(0)';
+                }, 10);
+            } else {
+                // Animate closing
+                mobileMenu.style.opacity = '0';
+                mobileMenu.style.transform = 'translateY(-10px)';
+                
+                // Actually hide the menu after animation completes
+                setTimeout(() => {
+                    // Animation already handled by CSS
+                }, 200);
+            }
+            
+            // Make sure feather icons are updated
+            if (typeof feather !== 'undefined') {
+                feather.replace();
+            }
         });
         
         // Close when clicking outside
         document.addEventListener('click', function(e) {
             if (mobileMenu.classList.contains('active') && 
                 !mobileMenu.contains(e.target) && 
-                !menuButton.contains(e.target)) {
+                !newMenuButton.contains(e.target)) {
                 mobileMenu.classList.remove('active');
                 console.log('Closed menu by clicking outside');
             }
@@ -126,6 +165,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log('Closed menu by clicking a link');
             });
         });
+    } else {
+        console.error('Mobile menu or button not found in DOM');
     }
     
     // Smooth scroll for navigation links
