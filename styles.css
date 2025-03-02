@@ -356,6 +356,67 @@ html[data-theme="dark"] .mobile-toggle-thumb {
     }
 }
 
+/* Mobile styles for hero section */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: clamp(5vh, 8vh, 10vh) 20px clamp(3vh, 5vh, 8vh);
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .hero-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .logo-title {
+        flex-direction: column;
+        gap: clamp(4vh, 6vh, 8vh);
+    }
+
+    .hero-logo {
+        height: min(180px, 40vw);
+        max-width: min(180px, 40vw);
+        object-fit: contain;
+        margin: 0 auto;
+    }
+
+    .hero-heading {
+        font-size: clamp(3.5rem, 15vw, 6.5rem);
+        margin: 0;
+        line-height: 1.1;
+    }
+    
+    .scroll-container {
+        position: static;
+        margin-top: auto;
+        margin-bottom: clamp(2vh, 4vh, 5vh);
+        align-self: center;
+    }
+
+    /* Mobile-specific style for the Explore button */
+    .boton-elegante {
+        font-size: clamp(1rem, 5vw, 1.3rem);
+        padding: clamp(10px, 4vw, 15px) clamp(25px, 8vw, 40px);
+        border-width: 2px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Ensure the nav doesn't take too much space on mobile */
+    .nav-content {
+        padding: 1rem;
+    }
+    
+    /* Adjust navbar to take less space */
+    .navbar {
+        height: auto;
+    }
+}
+
 /* Section structure */
 .section-wrapper {
     width: 100%;
@@ -735,18 +796,6 @@ html[data-theme="dark"] .submit-button {
         stroke-width: 2px;
     }
 
-    .hero-logo {
-        height: 120px;
-    }
-
-    .hero-heading {
-        font-size: 3.5rem;
-    }
-
-    .logo-title {
-        gap: 1rem;
-    }
-
     .works-grid {
         grid-template-columns: 1fr;
     }
@@ -761,17 +810,6 @@ html[data-theme="dark"] .submit-button {
     
     .section-title::after {
         width: 40px;
-    }
-}
-
-@media (min-width: 768px) {
-    .contact-content {
-        width: 100%;
-    }
-
-    .contact-form {
-        width: 100%;
-        max-width: 100%;
     }
 }
 
@@ -1008,45 +1046,6 @@ html[data-theme="dark"] .modal-link:hover {
 .modal-link svg {
     width: 18px;
     height: 18px;
-}
-
-/* Responsive modal styles */
-@media (max-width: 768px) {
-    .modal-container {
-        width: 95%;
-        max-height: 80vh;
-    }
-    
-    .modal-content {
-        padding: 1.8rem 1.5rem;
-    }
-    
-    .modal-title {
-        font-size: 1.8rem;
-        margin-right: 35px;
-    }
-    
-    .modal-close-button {
-        top: 15px;
-        right: 15px;
-        width: 28px;
-        height: 28px;
-    }
-    
-    .modal-text {
-        font-size: 0.95rem;
-    }
-    
-    .modal-tags-wrapper {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1.5rem;
-    }
-    
-    .modal-link {
-        width: 100%;
-        justify-content: center;
-    }
 }
 
 /* View More Projects Button */
@@ -1652,4 +1651,55 @@ html {
 .boton-elegante:hover {
   border-color: #666666;
   background: #292929;
+}
+
+/* Contact form media query */
+@media (min-width: 768px) {
+    .contact-content {
+        width: 100%;
+    }
+
+    .contact-form {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+/* Responsive modal styles */
+@media (max-width: 768px) {
+    .modal-container {
+        width: 95%;
+        max-height: 80vh;
+    }
+    
+    .modal-content {
+        padding: 1.8rem 1.5rem;
+    }
+    
+    .modal-title {
+        font-size: 1.8rem;
+        margin-right: 35px;
+    }
+    
+    .modal-close-button {
+        top: 15px;
+        right: 15px;
+        width: 28px;
+        height: 28px;
+    }
+    
+    .modal-text {
+        font-size: 0.95rem;
+    }
+    
+    .modal-tags-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+    }
+    
+    .modal-link {
+        width: 100%;
+        justify-content: center;
+    }
 }
