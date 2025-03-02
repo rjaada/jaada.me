@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM fully loaded and parsed');
     
-    // Ensure Feather icons are loaded first
+    // Initialize Feather icons
     if (typeof feather !== 'undefined') {
         feather.replace();
         console.log('Feather icons initialized on page load');
@@ -9,136 +9,93 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('Feather library not available on page load');
     }
     
-    // ==== THEME TOGGLE FUNCTIONALITY ====
-    function setupThemeToggle() {
-        console.log('Setting up theme toggle...');
+    // Theme toggle functionality
+    const themeToggle = document.querySelector('.theme-toggle');
+    const mobileThemeToggle = document.querySelector('.mobile-theme-toggle');
+    const moonIcon = document.querySelector('.moon-icon');
+    const sunIcon = document.querySelector('.sun-icon');
+    const mobileMoonIcon = document.querySelector('.mobile-moon-icon'); 
+    const mobileSunIcon = document.querySelector('.mobile-sun-icon');
+    const navLogo = document.querySelector('.nav-logo');
+    const heroLogo = document.querySelector('.hero-logo');
+    
+    // Check for saved theme preference or prefer-color-scheme
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    // Set initial theme
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.documentElement.style.colorScheme = 'dark';
+        if (moonIcon) moonIcon.style.display = 'none';
+        if (sunIcon) sunIcon.style.display = 'block';
+        if (mobileMoonIcon) mobileMoonIcon.style.display = 'none';
+        if (mobileSunIcon) mobileSunIcon.style.display = 'block';
+        if (navLogo) navLogo.src = 'photos/JR_logo_white.png';
+        if (heroLogo) heroLogo.src = 'photos/JR_logo_white.png';
         
-        // Get theme toggle elements
-        const themeToggleBtn = document.querySelector('.theme-toggle');
-        const mobileThemeToggleBtn = document.querySelector('.mobile-theme-toggle');
-        const moonIcon = document.querySelector('.moon-icon');
-        const sunIcon = document.querySelector('.sun-icon');
-        const mobileMoonIcon = document.querySelector('.mobile-moon-icon'); 
-        const mobileSunIcon = document.querySelector('.mobile-sun-icon');
+        // Move toggle thumb
+        const toggleThumb = document.querySelector('.toggle-thumb');
+        const mobileToggleThumb = document.querySelector('.mobile-toggle-thumb');
+        if (toggleThumb) toggleThumb.style.transform = 'translateX(26px)';
+        if (mobileToggleThumb) mobileToggleThumb.style.transform = 'translateX(26px)';
+    }
+    
+    // Toggle theme function
+    function toggleTheme() {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
         
-        // Check if elements exist
-        if (!themeToggleBtn) console.error('Theme toggle button not found');
-        if (!moonIcon || !sunIcon) console.error('Theme icons not found');
+        // Update theme
+        document.documentElement.setAttribute('data-theme', newTheme);
+        document.documentElement.style.colorScheme = newTheme;
+        localStorage.setItem('theme', newTheme);
         
-        // Get saved theme from localStorage
-        const savedTheme = localStorage.getItem('theme');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        // Update icons
+        if (moonIcon) moonIcon.style.display = newTheme === 'dark' ? 'none' : 'block';
+        if (sunIcon) sunIcon.style.display = newTheme === 'dark' ? 'block' : 'none';
+        if (mobileMoonIcon) mobileMoonIcon.style.display = newTheme === 'dark' ? 'none' : 'block';
+        if (mobileSunIcon) mobileSunIcon.style.display = newTheme === 'dark' ? 'block' : 'none';
         
-        // Set initial theme
-        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-            setTheme('dark');
-        } else {
-            setTheme('light');
-        }
+        // Update logos
+        if (navLogo) navLogo.src = newTheme === 'dark' ? 'photos/JR_logo_white.png' : 'photos/JR_logo.png';
+        if (heroLogo) heroLogo.src = newTheme === 'dark' ? 'photos/JR_logo_white.png' : 'photos/JR_logo.png';
         
-        // Function to toggle theme
-        function toggleTheme() {
-            console.log('Theme toggle clicked');
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            setTheme(newTheme);
-        }
+        // Move toggle thumb
+        const toggleThumb = document.querySelector('.toggle-thumb');
+        const mobileToggleThumb = document.querySelector('.mobile-toggle-thumb');
+        if (toggleThumb) toggleThumb.style.transform = newTheme === 'dark' ? 'translateX(26px)' : 'translateX(0)';
+        if (mobileToggleThumb) mobileToggleThumb.style.transform = newTheme === 'dark' ? 'translateX(26px)' : 'translateX(0)';
         
-        // Function to set theme
-        function setTheme(theme) {
-            console.log('Setting theme to:', theme);
-            
-            // Set HTML attribute and style
-            document.documentElement.setAttribute('data-theme', theme);
-            document.documentElement.style.colorScheme = theme;
-            localStorage.setItem('theme', theme);
-            
-            // Update icons
-            if (moonIcon && sunIcon) {
-                moonIcon.style.display = theme === 'dark' ? 'none' : 'block';
-                sunIcon.style.display = theme === 'dark' ? 'block' : 'none';
-            }
-            
-            if (mobileMoonIcon && mobileSunIcon) {
-                mobileMoonIcon.style.display = theme === 'dark' ? 'none' : 'block';
-                mobileSunIcon.style.display = theme === 'dark' ? 'block' : 'none';
-            }
-            
-            // Update toggle thumbs
-            const toggleThumb = document.querySelector('.toggle-thumb');
-            const mobileToggleThumb = document.querySelector('.mobile-toggle-thumb');
-            
-            if (toggleThumb) {
-                toggleThumb.style.transform = theme === 'dark' ? 'translateX(26px)' : 'translateX(0)';
-            }
-            
-            if (mobileToggleThumb) {
-                mobileToggleThumb.style.transform = theme === 'dark' ? 'translateX(26px)' : 'translateX(0)';
-            }
-            
-            // Update logos
-            const navLogo = document.querySelector('.nav-logo');
-            const heroLogo = document.querySelector('.hero-logo');
-            
-            if (navLogo) navLogo.src = theme === 'dark' ? 'photos/JR_logo_white.png' : 'photos/JR_logo.png';
-            if (heroLogo) heroLogo.src = theme === 'dark' ? 'photos/JR_logo_white.png' : 'photos/JR_logo.png';
-            
-            // Update Feather icons
-            if (typeof feather !== 'undefined') {
-                feather.replace();
-            }
-        }
-        
-        // Add click event listeners
-        if (themeToggleBtn) {
-            console.log('Adding click event to theme toggle button');
-            themeToggleBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                console.log('Theme toggle button clicked');
-                toggleTheme();
-            });
-        }
-        
-        if (mobileThemeToggleBtn) {
-            console.log('Adding click event to mobile theme toggle button');
-            mobileThemeToggleBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                console.log('Mobile theme toggle button clicked');
-                toggleTheme();
-            });
+        // Update feather icons
+        if (typeof feather !== 'undefined') {
+            feather.replace();
         }
     }
     
-    // ==== MOBILE MENU FUNCTIONALITY ====
-    function setupMobileMenu() {
-        console.log('Setting up mobile menu...');
-        
-        const menuButton = document.querySelector('.mobile-menu-button');
-        const mobileMenu = document.querySelector('.mobile-menu');
-        
-        if (!menuButton) {
-            console.error('Mobile menu button not found');
-            return;
-        }
-        
-        if (!mobileMenu) {
-            console.error('Mobile menu not found');
-            return;
-        }
-        
-        // Add click event to menu button
+    // Add event listeners for theme toggle
+    if (themeToggle) {
+        themeToggle.addEventListener('click', toggleTheme);
+    }
+    
+    if (mobileThemeToggle) {
+        mobileThemeToggle.addEventListener('click', toggleTheme);
+    }
+    
+    // Mobile menu functionality
+    const menuButton = document.querySelector('.mobile-menu-button');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    
+    if (menuButton && mobileMenu) {
         menuButton.addEventListener('click', function(e) {
             e.stopPropagation();
-            console.log('Mobile menu button clicked');
             mobileMenu.classList.toggle('active');
         });
         
-        // Close menu when clicking outside
         document.addEventListener('click', function(e) {
             if (mobileMenu.classList.contains('active') && 
                 !menuButton.contains(e.target) && 
                 !mobileMenu.contains(e.target)) {
-                console.log('Clicked outside mobile menu, closing');
                 mobileMenu.classList.remove('active');
             }
         });
@@ -147,20 +104,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const mobileMenuLinks = mobileMenu.querySelectorAll('a[href^="#"]');
         mobileMenuLinks.forEach(link => {
             link.addEventListener('click', function() {
-                console.log('Mobile menu link clicked, closing menu');
                 mobileMenu.classList.remove('active');
             });
         });
     }
-    
-    // Initialize theme toggle and mobile menu
-    setupThemeToggle();
-    setupMobileMenu();
-    
-    // Theme initialization
-    const navLogo = document.querySelector('.nav-logo');
-    const heroLogo = document.querySelector('.hero-logo');
-    const menuIcon = document.querySelector('.mobile-menu-button svg');
     
     // Smooth scroll for navigation links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -172,8 +119,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     top: target.offsetTop - 80, // Account for fixed header
                     behavior: 'smooth'
                 });
-                // Close mobile menu if open
-                mobileMenu.classList.remove('active');
             }
         });
     });
@@ -767,67 +712,4 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('.explorer-container').addEventListener('click', function(e) {
         e.stopPropagation();
     });
-
-    // Custom cursor functionality
-    const cursorDot = document.querySelector('.cursor-dot');
-    const cursorOutline = document.querySelector('.cursor-outline');
-    
-    // Check if cursor elements exist and if device supports hover
-    const hasHoverSupport = window.matchMedia('(hover: hover)').matches;
-    const hasCursorElements = cursorOutline; // Only need to check outline now
-    
-    if (hasCursorElements && hasHoverSupport) {
-        // Set initial positions off-screen
-        cursorOutline.style.opacity = 0;
-        
-        // Track mouse movement
-        document.addEventListener('mousemove', function(e) {
-            // Smooth animation using requestAnimationFrame
-            window.requestAnimationFrame(function() {
-                cursorOutline.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-                
-                // Ensure cursor is visible
-                if (cursorOutline.style.opacity === '0') {
-                    cursorOutline.style.opacity = 1;
-                }
-            });
-        });
-        
-        // Handle mouse leaving the window
-        document.addEventListener('mouseleave', function() {
-            cursorOutline.style.opacity = 0;
-        });
-        
-        // Handle mouse entering the window
-        document.addEventListener('mouseenter', function() {
-            cursorOutline.style.opacity = 1;
-        });
-        
-        // Handle cursor on clickable elements
-        const clickables = document.querySelectorAll('a, button, .work-item, .nav-item a, .theme-toggle, .social-link, .view-more-button, input, textarea');
-        
-        clickables.forEach(element => {
-            element.addEventListener('mouseenter', function() {
-                cursorOutline.style.width = '40px';
-                cursorOutline.style.height = '40px';
-                cursorOutline.style.borderColor = 'transparent';
-            });
-            
-            element.addEventListener('mouseleave', function() {
-                cursorOutline.style.width = '30px';
-                cursorOutline.style.height = '30px';
-                cursorOutline.style.borderColor = 'var(--accent-color)';
-            });
-        });
-        
-        // Handle mousedown state
-        document.addEventListener('mousedown', function(e) {
-            cursorOutline.style.transform = `translate(${e.clientX}px, ${e.clientY}px) scale(0.8)`;
-        });
-        
-        // Handle mouseup state
-        document.addEventListener('mouseup', function(e) {
-            cursorOutline.style.transform = `translate(${e.clientX}px, ${e.clientY}px) scale(1)`;
-        });
-    }
 });
