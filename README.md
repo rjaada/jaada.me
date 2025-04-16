@@ -1,6 +1,6 @@
-# Gaudin Website
+# JAADA Website
 
-A clean, minimalist portfolio website for Gaudin, featuring a modern design with a focus on typography and user experience.
+A clean, minimalist portfolio website for JAADA, featuring a modern design with a focus on typography and user experience.
 
 ## Features
 
