@@ -1,292 +1,157 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light" style="color-scheme: light;">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JAADA</title>
-    <meta name="description" content="JAADA - Creative Portfolio">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <title>JAADA - Rachid | Software Engineering Student</title>
+    <meta name="description" content="Rachid - Software Engineering Student at 42 Málaga. Building things from first principles.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="photos/JR_logo.png">
     <link rel="icon" type="image/png" sizes="16x16" href="photos/JR_logo.png">
     <link rel="apple-touch-icon" sizes="180x180" href="photos/JR_logo.png">
     <link rel="manifest" href="site.webmanifest">
+    
     <link rel="stylesheet" href="styles.css">
-    <!-- Add Feather Icons library -->
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <script src="script.js" defer></script>
 </head>
 <body>
-    <div id="root">
-        <div class="main-container">
-            <nav class="navbar">
-                <div class="nav-content">
-                    <a class="logo-link" href="#">
-                        <img src="photos/JR_logo.png" alt="Lion Logo" class="nav-logo">
-                    </a>
-                    <ul class="nav-links">
-                        <li class="nav-item"><a href="#about">About</a></li>
-                        <li class="nav-item"><a href="#works">Works</a></li>
-                        <li class="nav-item"><a href="#contact">Contact</a></li>
-                    </ul>
-                    <div class="mobile-menu-container">
-                        <button type="button" class="mobile-menu-button" aria-label="Menu">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-                        </button>
-                        <div class="mobile-menu">
-                            <ul class="mobile-nav-links">
-                                <li class="nav-item"><a href="#about">About</a></li>
-                                <li class="nav-item"><a href="#works">Works</a></li>
-                                <li class="nav-item"><a href="#contact">Contact</a></li>
-                                <li class="nav-item mobile-theme-toggle-container">
-                                    <div class="mobile-theme-label">Dark Mode</div>
-                                    <button type="button" class="mobile-theme-toggle" aria-label="Toggle dark mode">
-                                        <span class="mobile-toggle-thumb"></span>
-                                    </button>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-
-            <div class="hero-section">
-                <div class="hero-content">
-                    <div class="logo-title">
-                        <img src="photos/JR_logo.png" alt="Lion Logo" class="hero-logo">
-                        <h1 class="hero-heading">JAADA</h1>
-                    </div>
-                </div>
-                <div class="scroll-container">
-                    <a href="#about" class="scroll-arrow-link">
-                        <div class="scroll-arrow">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
-            <!-- About Section -->
-            <section class="section-wrapper" id="about-section">
-                <span id="about" class="section-anchor">&nbsp;</span>
-                <div class="content-section">
-                    <p class="section-label animate-on-scroll">INTRODUCTION</p>
-                    <div class="statement-text-container">
-                        <h2 class="statement-text">
-                            <span class="animate-word">HI</span>
-                            <span class="animate-word">THERE!</span>
-                            <span class="animate-word">I'M</span>
-                            <span class="animate-word">RACHID,</span>
-                            <span class="animate-word">A</span>
-                            <span class="animate-word">SECOND-YEAR</span>
-                            <span class="animate-word">SOFTWARE</span>
-                            <span class="animate-word">ENGINEERING</span>
-                            <span class="animate-word">STUDENT</span>
-                            <span class="animate-word">AT</span>
-                            <span class="animate-word">42</span>
-                            <span class="animate-word">MÁLAGA.</span>
-                        </h2>
-                    </div>
-                    <div class="statement-description animate-paragraph">
-                        <p>I'M PASSIONATE ABOUT TECHNOLOGY AND LOVE DIVING INTO THE WORLD OF PROGRAMMING. RIGHT NOW, I'M SOAKING UP ALL THE KNOWLEDGE I CAN AND ENJOYING EVERY BIT OF IT.</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Works Section -->
-            <section class="section-wrapper" id="works-section">
-                <span id="works" class="section-anchor">&nbsp;</span>
-                <div class="content-section">
-                    <h2 class="section-title">Works</h2>
-                    <div class="works-grid">
-                        <a href="https://github.com/rjaada/Push_Swap_42_Project" class="work-item" target="_blank">
-                            <div class="work-content">
-                                <h3 class="work-title">Push_Swap</h3>
-                                <p class="work-description">42 • An efficient sorting algorithm implementation using two stacks, focusing on optimization and algorithmic thinking.</p>
-                                <div class="work-tags">
-                                    <span class="tag">#42</span>
-                                    <span class="tag">#c</span>
-                                    <span class="tag">#algorithms</span>
-                                    <span class="tag">#sorting</span>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="https://github.com/rjaada/Philosophers_42_Project" class="work-item" target="_blank">
-                            <div class="work-content">
-                                <h3 class="work-title">Philosophers</h3>
-                                <p class="work-description">42 • A multi-threading and synchronization project solving the dining philosophers problem, demonstrating concurrent programming skills.</p>
-                                <div class="work-tags">
-                                    <span class="tag">#42</span>
-                                    <span class="tag">#c</span>
-                                    <span class="tag">#threading</span>
-                                    <span class="tag">#synchronization</span>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="https://github.com/rjaada/Minishell_42_Project" class="work-item" target="_blank">
-                            <div class="work-content">
-                                <h3 class="work-title">Minishell</h3>
-                                <p class="work-description">42 • A shell implementation project showcasing system programming and command interpretation capabilities.</p>
-                                <div class="work-tags">
-                                    <span class="tag">#42</span>
-                                    <span class="tag">#c</span>
-                                    <span class="tag">#shell</span>
-                                    <span class="tag">#system</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="view-more-container">
-                        <button id="view-more-btn" class="view-more-button">
-                            <span>View More Projects</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
-                        </button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Contact Section -->
-            <section class="section-wrapper" id="contact-section">
-                <span id="contact" class="section-anchor">&nbsp;</span>
-                <div class="content-section">
-                    <p class="section-label">GET IN TOUCH</p>
-                    <h2 class="section-title">Contact.</h2>
-                    <p class="contact-intro">Contact me today to bring your vision to life with my expertise in software development.</p>
-                    
-                    <div class="contact-content">
-                        <form class="contact-form" id="contact-form" action="https://api.web3forms.com/submit" method="POST">
-                            <input type="hidden" name="access_key" value="6dd2d022-0fc3-4e9c-86eb-3777dd58c75b">
-                            <input type="hidden" name="from_name" value="Jaada.me Website">
-                            <input type="text" name="name" placeholder="What's your name?" required>
-                            <input type="email" name="email" placeholder="What's your email?" required>
-                            <textarea name="message" placeholder="What can I do for you?" rows="6" required></textarea>
-                            <input type="hidden" name="subject" value="New Contact Form Submission from jaada.me">
-                            <button type="submit" class="submit-button">
-                                <span>Send Message</span>
-                            </button>
-                        </form>
-                        
-                        <div class="success-message" id="success-message" style="display: none;">
-                            <div class="success-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                                </svg>
-                            </div>
-                            <h3>Message Sent Successfully!</h3>
-                            <p>Thank you for reaching out. I'll get back to you soon.</p>
-                            <button class="close-success-button" id="close-success-button">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </section>
+    <!-- Navigation -->
+    <nav class="nav">
+        <a href="#" class="nav-logo">JAADA</a>
+        <div class="nav-links">
+            <a href="#work" class="nav-link">Work</a>
+            <a href="#about" class="nav-link">About</a>
+            <a href="#contact" class="nav-link">Contact</a>
         </div>
-    </div>
-    
-    <!-- Theme Toggle Button -->
-    <button class="theme-toggle" aria-label="Toggle dark mode">
-        <span class="toggle-thumb"></span>
-    </button>
-    
-    <!-- Project Modal -->
-    <div id="project-modal" class="project-modal">
-        <div class="modal-overlay"></div>
-        <div class="modal-container">
-            <button class="modal-close-button">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-            </button>
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="modal-title">Project Title</h2>
-                </div>
-                <div class="modal-body">
-                    <div class="modal-image-container">
-                        <img src="" alt="Project preview" class="modal-image">
-                    </div>
-                    <div class="modal-description">
-                        <p class="modal-text">Project description goes here.</p>
-                        <div class="modal-tags-wrapper">
-                            <div class="modal-tags">
-                                <!-- Tags will be added dynamically -->
-                            </div>
-                            <a href="#" class="modal-link" onclick="return false;">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                                View on GitHub
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <button class="theme-toggle" aria-label="Toggle theme">
+            <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+        </button>
+        <button class="mobile-menu-btn" aria-label="Open menu">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+        </button>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu">
+        <button class="mobile-menu-close" aria-label="Close menu">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        <div class="mobile-menu-content">
+            <a href="#work" class="mobile-menu-link">Work</a>
+            <a href="#about" class="mobile-menu-link">About</a>
+            <a href="#contact" class="mobile-menu-link">Contact</a>
         </div>
-    </div>
-    
-    <!-- Project Explorer Modal -->
-    <div id="project-explorer" class="project-explorer">
-        <div class="explorer-overlay"></div>
-        <div class="explorer-container">
-            <button class="explorer-close-button">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-            </button>
-            <div class="explorer-content">
-                <div class="explorer-header">
-                    <h2 class="explorer-title">Project Explorer</h2>
-                </div>
-                <div class="explorer-body">
-                    <div class="explorer-panels">
-                        <div class="explorer-left-panel">
-                            <div class="folder-list">
-                                <div class="folder" data-project="libft">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
-                                    <span>Libft</span>
-                                </div>
-                                <div class="folder" data-project="so_long">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
-                                    <span>So_Long</span>
-                                </div>
-                                <div class="folder" data-project="get_next_line">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
-                                    <span>Get_Next_Line</span>
-                                </div>
-                                <div class="folder" data-project="minitalk">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
-                                    <span>Minitalk</span>
-                                </div>
-                                <div class="folder" data-project="printf">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
-                                    <span>Printf</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="explorer-right-panel">
-                            <div class="project-details">
-                                <div class="project-header">
-                                    <h3 class="project-title">Select a project</h3>
-                                </div>
-                                <div class="project-description">
-                                    <p class="project-text">Click on a project folder to view details.</p>
-                                </div>
-                                <div class="project-files">
-                                    <!-- Files will be loaded dynamically -->
-                                </div>
-                                <div class="project-tags">
-                                    <!-- Tags will be added dynamically -->
-                                </div>
-                                <a href="#" class="project-link" target="_blank">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                                    View on GitHub
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <button class="mobile-theme-toggle" aria-label="Toggle theme">
+            <span class="mobile-theme-label">Theme</span>
+            <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+        </button>
     </div>
 
-    <!-- Load Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <script src="script.js"></script>
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1 class="hero-headline">Building things from first principles.</h1>
+            <p class="hero-subtitle">Rachid — Software Engineering Student, 42 Málaga</p>
+        </section>
+
+        <!-- Work Section -->
+        <section id="work" class="section">
+            <span class="section-label">Selected Work</span>
+            <div class="work-list">
+                <a href="https://github.com/rjaada/Minishell_42_Project" target="_blank" rel="noopener noreferrer" class="work-row">
+                    <span class="work-name">Minishell</span>
+                    <span class="work-info">Shell implementation in C · 2024</span>
+                </a>
+                <a href="https://github.com/rjaada/Push_Swap_42_Project" target="_blank" rel="noopener noreferrer" class="work-row">
+                    <span class="work-name">Push_Swap</span>
+                    <span class="work-info">Sorting algorithm visualizer · 2024</span>
+                </a>
+                <a href="https://github.com/rjaada/Philosophers_42_Project" target="_blank" rel="noopener noreferrer" class="work-row">
+                    <span class="work-name">Philosophers</span>
+                    <span class="work-info">Concurrency & threading · 2024</span>
+                </a>
+                <a href="https://github.com/rjaada/Libft_42_Project" target="_blank" rel="noopener noreferrer" class="work-row">
+                    <span class="work-name">Libft</span>
+                    <span class="work-info">Custom C standard library · 2023</span>
+                </a>
+                <a href="https://github.com/rjaada/Get_Next_Line_42_Project" target="_blank" rel="noopener noreferrer" class="work-row">
+                    <span class="work-name">Get_Next_Line</span>
+                    <span class="work-info">File reading utility · 2023</span>
+                </a>
+                <a href="https://github.com/rjaada/Printf_42_Project" target="_blank" rel="noopener noreferrer" class="work-row">
+                    <span class="work-name">Printf</span>
+                    <span class="work-info">Custom printf implementation · 2023</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section">
+            <span class="section-label">About</span>
+            <p class="about-text">I'm Rachid, a second-year student at 42 Málaga focused on systems programming and software fundamentals. I build things from the ground up — in C, in the terminal, from scratch.</p>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section">
+            <span class="section-label">Contact</span>
+            <h2 class="contact-heading">Let's talk</h2>
+            <p class="contact-text">Have a project in mind or just want to connect?</p>
+            <a href="mailto:rjaada42@gmail.com" class="contact-email">rjaada42@gmail.com</a>
+            <div class="social-links">
+                <a href="https://github.com/rjaada" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                    </svg>
+                </a>
+                <a href="https://www.linkedin.com/in/rachid-jaada/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                        <rect x="2" y="9" width="4" height="12"></rect>
+                        <circle cx="4" cy="4" r="2"></circle>
+                    </svg>
+                </a>
+            </div>
+        </section>
+    </main>
 </body>
 </html>
